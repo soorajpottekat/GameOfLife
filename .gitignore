@@ -1,0 +1,7 @@
+
+.idea/*
+.idea/
+gameOflife.iml
+
+*.class
+.gitignore
