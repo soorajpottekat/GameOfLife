@@ -146,4 +146,22 @@ public class MapManagerTest
         assertNotNull(newGenMap.getCell(2,3));
         assertNotNull(newGenMap.getCell(3,3));
     }
+
+    @Test
+    public void generateOneGenerationStillLifeAsymmetric() throws Exception
+    {
+        Map map = mapManager.createMap(7, 5);
+        List<String> seeds = new ArrayList<String>();
+        seeds.add("2,3");
+        seeds.add("2,4");
+        seeds.add("3,3");
+        seeds.add("3,4");
+        mapManager.insertSeedInputToMap(map,seeds);
+        Map newGenMap = mapManager.forwardNGenerations(map, 1);
+        assertEquals(4,newGenMap.getAllCells().size());
+        assertNotNull(newGenMap.getCell(2,3));
+        assertNotNull(newGenMap.getCell(2,4));
+        assertNotNull(newGenMap.getCell(3,3));
+        assertNotNull(newGenMap.getCell(3,4));
+    }
 }

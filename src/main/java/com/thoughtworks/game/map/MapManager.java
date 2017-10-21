@@ -63,9 +63,9 @@ public class MapManager
     private Map forwardOneGenerations(Map map)
     {
         Map tempMap = createSnapShotOfMap(map.getWidth(), map.getHeight(), map.getAllLocations());
-        for (int x = 0; x < map.getWidth(); x++)
+        for (int x = 0; x < map.getHeight(); x++)
         {
-            for (int y = 0; y < map.getHeight(); y++)
+            for (int y = 0; y < map.getWidth(); y++)
             {
                 createNextGenerationOfCell(map, tempMap, x, y);
             }
