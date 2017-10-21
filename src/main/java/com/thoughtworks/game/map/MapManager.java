@@ -40,7 +40,7 @@ public class MapManager
         ruleSet = new RuleSet();
     }
 
-    public static Map createMap(int width, int height)
+    public  Map createMap(int width, int height)
     {
         return new Map(width, height);
     }
@@ -62,20 +62,25 @@ public class MapManager
 
     private Map forwardOneGenerations(Map map)
     {
-        final int width = map.getWidth();
-        final int height = map.getHeight();
-        Map tempMap = createSnapShotOfMap(width, height, map.getAllLocations());
-        for (int x = 0; x < width; x++)
+        Map tempMap = createSnapShotOfMap(map.getWidth(), map.getHeight(), map.getAllLocations());
+        for (int x = 0; x < map.getWidth(); x++)
         {
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < map.getHeight(); y++)
             {
-                createNextGeneration(map, tempMap, x, y);
+                createNextGenerationOfCell(map, tempMap, x, y);
             }
         }
         return map;
     }
 
-    private void createNextGeneration(Map map, Map tempMap, int x, int y)
+    private Map createSnapShotOfMap(int width, int height, Set<Point> allLocations)
+    {
+        Map tempMap = createMap(width, height);
+        tempMap.populateWithCells(allLocations);
+        return tempMap;
+    }
+
+    private void createNextGenerationOfCell(Map map, Map tempMap, int x, int y)
     {
         Cell cell = map.getCell(x, y);
         boolean shouldLive = false;
@@ -100,12 +105,5 @@ public class MapManager
         shouldLive = ruleSet.applyLiveCellRules(numberOfLiveNeighbours);
         if (!shouldLive)
             map.remove(x, y);
-    }
-
-    private Map createSnapShotOfMap(int width, int height, Set<Point> allLocations)
-    {
-        Map tempMap = createMap(width, height);
-        tempMap.populateWithCells(allLocations);
-        return tempMap;
     }
 }

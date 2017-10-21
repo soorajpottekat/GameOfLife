@@ -28,8 +28,14 @@ import java.util.logging.Logger;
  */
 public class SeedFileReader implements InputReader {
     private static final Logger LOGGER = Logger.getLogger("SeedFileReader");
-    public List<String> getSeed(String filePath) throws IllegalArgumentException {
-        ArrayList<String> seed;
+    private String filePath;
+
+    public SeedFileReader(String filePath)
+    {
+        this.filePath = filePath;
+    }
+    public List<String> getSeed() throws IllegalArgumentException {
+        List<String> seed;
         BufferedReader reader = null;
         try
         {
@@ -56,9 +62,9 @@ public class SeedFileReader implements InputReader {
         return reader;
     }
 
-    private ArrayList<String> readFileEntries(BufferedReader reader) throws IOException
+    private List<String> readFileEntries(BufferedReader reader) throws IOException
     {
-        ArrayList<String> registeredEntries = new ArrayList<String>();
+        List<String> registeredEntries = new ArrayList<String>();
         String line;
         while ((line = reader.readLine()) != null)
         {
@@ -76,5 +82,10 @@ public class SeedFileReader implements InputReader {
                 LOGGER.warning(" Failed to close the seed file reader");
             }
         }
+    }
+
+    public void setFilePath(String filePath)
+    {
+        this.filePath = filePath;
     }
 }

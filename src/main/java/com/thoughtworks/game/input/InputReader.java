@@ -24,5 +24,5 @@ import java.util.List;
  * @author Sooraj Pottekat
  */
 public interface InputReader {
-    List<String> getSeed(String filePath) throws IllegalArgumentException;
+    List<String> getSeed() throws IllegalArgumentException;
 }

@@ -28,8 +28,6 @@ import java.util.*;
  */
 public class Map
 {
-
-
     private final int width;
     private final int height;
     private HashMap<Point, Cell> cellsStore;
@@ -64,22 +62,14 @@ public class Map
     {
         int neighbourCount = 0;
         // Checking the surrounding cells
-        for (int i = -1; i < 2; i++)
-            for (int j = -1; j < 2; j++)
-                if (i == 0 && j == 0) // if current cell skip the operation
-                {
-                    continue;
-                }
-                else
-                {
-                    int neighbourX = x + i;
-                    int neighbourY = y + j;
-                    if (isCellAlive(neighbourX, neighbourY))
-                    {
-                        neighbourCount++;
-                    }
-                }
-
+        neighbourCount = isCellAlive(x-1,y-1)? ++neighbourCount:neighbourCount;//top left
+        neighbourCount = isCellAlive(x-1,y)? ++neighbourCount:neighbourCount;//top center
+        neighbourCount = isCellAlive(x-1,y+1)? ++neighbourCount:neighbourCount;//top right
+        neighbourCount = isCellAlive(x,y-1)? ++neighbourCount:neighbourCount;//left
+        neighbourCount = isCellAlive(x,y+1)? ++neighbourCount:neighbourCount;//right
+        neighbourCount = isCellAlive(x+1,y-1)? ++neighbourCount:neighbourCount;//bottom left
+        neighbourCount = isCellAlive(x+1,y)? ++neighbourCount:neighbourCount;//bottom center
+        neighbourCount = isCellAlive(x+1,y+1)? ++neighbourCount:neighbourCount;//bottom right
         return neighbourCount;
     }
 
@@ -98,14 +88,14 @@ public class Map
         cellsStore.clear();
     }
 
-    public HashMap<Point,Cell> getAllCells()
+    public HashMap<Point, Cell> getAllCells()
     {
         return cellsStore;
     }
 
     public void populateWithCells(Set<Point> locations)
     {
-        for(Point location : locations)
+        for (Point location : locations)
         {
             createCell(location);
         }
@@ -113,7 +103,7 @@ public class Map
 
     private void createCell(Point location)
     {
-        addCell(location.x,location.y,new Cell());
+        addCell(location.x, location.y, new Cell());
     }
 
     public int getWidth()
@@ -133,6 +123,6 @@ public class Map
 
     public void remove(int x, int y)
     {
-        cellsStore.remove(new Point(x,y));
+        cellsStore.remove(new Point(x, y));
     }
 }
