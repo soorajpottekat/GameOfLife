@@ -97,4 +97,42 @@ public class Map
     {
         cellsStore.clear();
     }
+
+    public HashMap<Point,Cell> getAllCells()
+    {
+        return cellsStore;
+    }
+
+    public void populateWithCells(Set<Point> locations)
+    {
+        for(Point location : locations)
+        {
+            createCell(location);
+        }
+    }
+
+    private void createCell(Point location)
+    {
+        addCell(location.x,location.y,new Cell());
+    }
+
+    public int getWidth()
+    {
+        return width;
+    }
+
+    public int getHeight()
+    {
+        return height;
+    }
+
+    public Set<Point> getAllLocations()
+    {
+        return cellsStore.keySet();
+    }
+
+    public void remove(int x, int y)
+    {
+        cellsStore.remove(new Point(x,y));
+    }
 }
