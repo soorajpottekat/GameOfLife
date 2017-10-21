@@ -46,7 +46,7 @@ public class CellsCreatorTest
     }
 
     @Test
-    public void test_createLocationsWithEmptyArray() throws Exception
+    public void createLocationsWithEmptyArray() throws Exception
     {
         List<String> seeds = new ArrayList<String>();
         final Set<Point> locations = cellsCreator.createCellsLocationFromSeed(seeds);
@@ -54,7 +54,7 @@ public class CellsCreatorTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void test_crateLocationWithInvalidInput() throws Exception
+    public void crateLocationWithInvalidInput() throws Exception
     {
         List<String> seeds = new ArrayList<String>();
         seeds.add("2S,3");
@@ -62,7 +62,7 @@ public class CellsCreatorTest
     }
 
     @Test
-    public void test_createLocationsWithOneEntry() throws Exception
+    public void createLocationsWithOneEntry() throws Exception
     {
         List<String> seeds = new ArrayList<String>();
         seeds.add("2,3");
@@ -71,7 +71,7 @@ public class CellsCreatorTest
     }
 
     @Test
-    public void test_createLocationsWithMultipleEntry() throws Exception
+    public void createLocationsWithMultipleEntry() throws Exception
     {
         List<String> seeds = new ArrayList<String>();
         seeds.add("2,3");

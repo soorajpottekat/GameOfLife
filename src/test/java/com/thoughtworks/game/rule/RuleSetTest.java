@@ -39,14 +39,14 @@ public class RuleSetTest
     }
 
     @Test
-    public void test_applyRulesTestRule1() throws Exception
+    public void applyRulesTestRule1() throws Exception
     {
         boolean shouldKeptAlive = ruleSet.applyLiveCellRules(1);
         assertFalse(shouldKeptAlive);
     }
 
     @Test
-    public void test_applyRulesTestRule2() throws Exception
+    public void applyRulesTestRule2() throws Exception
     {
         boolean shouldKeptAlive = ruleSet.applyLiveCellRules(2);
         assertTrue(shouldKeptAlive);
@@ -54,7 +54,7 @@ public class RuleSetTest
         assertTrue(shouldKeptAlive);
     }
     @Test
-    public void test_applyRulesTestRule3() throws Exception
+    public void applyRulesTestRule3() throws Exception
     {
         boolean shouldKeptAlive = ruleSet.applyLiveCellRules(4);
         assertFalse(shouldKeptAlive);
@@ -63,7 +63,7 @@ public class RuleSetTest
     }
 
     @Test
-    public void test_applyRulesTestRule4() throws Exception
+    public void applyRulesTestRule4() throws Exception
     {
         boolean shouldKeptAlive = ruleSet.applyDeadCellRule(3);
         assertTrue(shouldKeptAlive);

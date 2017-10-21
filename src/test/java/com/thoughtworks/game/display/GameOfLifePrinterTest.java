@@ -48,7 +48,7 @@ public class GameOfLifePrinterTest
         new File("actual").delete();
     }
     @Test
-    public void test_MapPrinting() throws Exception
+    public void mapPrinting() throws Exception
     {
         Map map = new Map(2, 2);
         map.addCell(0,0,new Cell());

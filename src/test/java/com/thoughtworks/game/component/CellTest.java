@@ -29,12 +29,12 @@ import static org.junit.Assert.*;
 public class CellTest
 {
     @Test
-    public void createCell_stateAlive()
+    public void createCellStateAlive()
     {
         assertTrue(new Cell().isAlive());
     }
     @Test
-    public void createdCell_dies()
+    public void createdCellDies()
     {
         final Cell cell = new Cell();
         cell.dies();
@@ -42,7 +42,7 @@ public class CellTest
     }
 
     @Test
-    public void deadCell_reproduces()
+    public void deadCellReproduces()
     {
         final Cell cell = new Cell();
         cell.dies();

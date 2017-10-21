@@ -48,7 +48,7 @@ public class MapTest
     }
 
     @Test
-    public void testMap_OneWidthAndOneHeight() throws Exception
+    public void mapOneWidthAndOneHeight() throws Exception
     {
         Map map = new Map(1, 1);
         map.addCell(0, 0, cell);
@@ -57,32 +57,32 @@ public class MapTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void test_insert_NegativeXCoOrdinate() throws Exception
+    public void insertNegativeXCoOrdinate() throws Exception
     {
         map.addCell(-1,0, cell);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void test_insert_NegativeYCoOrdinate() throws Exception
+    public void insertNegativeYCoOrdinate() throws Exception
     {
         map.addCell(0,-1, cell);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void test_insert_XCoOrdinateOutOfBound() throws Exception
+    public void insertXCoOrdinateOutOfBound() throws Exception
     {
         map.addCell(5,0, cell);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void test_insert_YCoOrdinateOutOfBound() throws Exception
+    public void insertYCoOrdinateOutOfBound() throws Exception
     {
         Cell cell = new Cell();
         map.addCell(0,6, cell);
     }
 
     @Test
-    public void test_OneLiveNeighbour() throws Exception
+    public void oneLiveNeighbour() throws Exception
     {
         map.addCell(2,3,cell);
         Cell neighbour = new Cell();
@@ -91,7 +91,7 @@ public class MapTest
         assertEquals(1,numberLiveNeighbours);
     }
     @Test
-    public void test_OneDeadNeighbour() throws Exception
+    public void oneDeadNeighbour() throws Exception
     {
         map.addCell(2,3, cell);
         Cell neighbour = new Cell();
@@ -101,7 +101,7 @@ public class MapTest
         assertEquals(0,numberLiveNeighbours);
     }
     @Test
-    public void test_all_Live_neighbours() throws Exception
+    public void allLiveNeighbours() throws Exception
     {
         map.addCell(2,3, cell);
         map.addCell(1,2,new Cell());
@@ -117,7 +117,7 @@ public class MapTest
     }
 
     @Test
-    public void test_Three_Live_Five_dead_neighbours() throws Exception
+    public void threeLiveFiveDeadNeighbours() throws Exception
     {
         map.addCell(2,3, cell);
         Cell neighbourPos_1X2 = new Cell();

@@ -42,14 +42,14 @@ public class SeedFileReaderTest
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testInput_Invalid_FilePath()
+    public void inputInvalidFilePath()
     {
         inputReader.setFilePath("invalid");
         inputReader.getSeed();
     }
 
     @Test
-    public void testReadValidFile() throws Exception
+    public void readValidFile() throws Exception
     {
         inputReader.setFilePath("src/test/java/input/DummyInput");
         List<String> registeredEntries = inputReader.getSeed();
@@ -57,7 +57,7 @@ public class SeedFileReaderTest
     }
 
     @Test
-    public void testReadFileWithOneEntry() throws Exception
+    public void readFileWithOneEntry() throws Exception
     {
         inputReader.setFilePath("src/test/java/input/OneEntry");
         List<String> registeredEntries = inputReader.getSeed();
@@ -65,7 +65,7 @@ public class SeedFileReaderTest
     }
 
     @Test
-    public void testReadFileWithMultipleEntry() throws Exception
+    public void readFileWithMultipleEntry() throws Exception
     {
         inputReader.setFilePath("src/test/java/input/MultipleEntry");
         List<String> registeredEntries = inputReader.getSeed();

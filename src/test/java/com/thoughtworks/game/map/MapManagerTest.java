@@ -42,20 +42,20 @@ public class MapManagerTest
         mapManager = new MapManager();
     }
     @Test
-    public void test_CreateZeroWidthHeightMap() throws Exception
+    public void createZeroWidthHeightMap() throws Exception
     {
         Map map = mapManager.createMap(0,0);
         assertNotNull(map);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void test_CreateZeroWidthHeightMapInsertElement() throws Exception
+    public void createZeroWidthHeightMapInsertElement() throws Exception
     {
         Map map = mapManager.createMap(0,0);
         map.addCell(0,0,new Cell());
     }
     @Test
-    public void test_InsertOneSeedIntoMap() throws Exception
+    public void insertOneSeedIntoMap() throws Exception
     {
         Map map = mapManager.createMap(5, 5);
         List<String> seeds = new ArrayList<String>();
@@ -65,7 +65,7 @@ public class MapManagerTest
         assertEquals(1,allCells.size());
     }
     @Test
-    public void test_InsertSeedIntoMap() throws Exception
+    public void insertSeedIntoMap() throws Exception
     {
         Map map = mapManager.createMap(5, 5);
         List<String> seeds = new ArrayList<String>();
@@ -80,7 +80,7 @@ public class MapManagerTest
     }
 
     @Test
-    public void test_GenerateOneGeneration() throws Exception
+    public void generateOneGeneration() throws Exception
     {
         Map map = mapManager.createMap(5, 5);
         List<String> seeds = new ArrayList<String>();
@@ -91,7 +91,7 @@ public class MapManagerTest
     }
 
     @Test
-    public void test_GenerateOneGenerationStillLife() throws Exception
+    public void generateOneGenerationStillLife() throws Exception
     {
         Map map = mapManager.createMap(5, 5);
         List<String> seeds = new ArrayList<String>();
@@ -109,7 +109,7 @@ public class MapManagerTest
     }
 
     @Test
-    public void test_GenerateFourGenerationStillLife() throws Exception
+    public void generateFourGenerationStillLife() throws Exception
     {
         Map map = mapManager.createMap(5, 5);
         List<String> seeds = new ArrayList<String>();
@@ -127,7 +127,7 @@ public class MapManagerTest
     }
 
     @Test
-    public void test_GenerateTwoGenerationOscillatorLife() throws Exception
+    public void generateTwoGenerationOscillatorLife() throws Exception
     {
         Map map = mapManager.createMap(5, 5);
         List<String> seeds = new ArrayList<String>();
