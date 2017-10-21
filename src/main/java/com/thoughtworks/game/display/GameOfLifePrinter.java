@@ -16,6 +16,7 @@ package com.thoughtworks.game.display;
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
 
+import com.thoughtworks.game.component.Cell;
 import com.thoughtworks.game.map.Map;
 
 import java.awt.*;
@@ -32,34 +33,22 @@ public class GameOfLifePrinter
 
     public void printResult(Map map)
     {
-        Set<Point> allLocations = map.getAllLocations();
-        List<Point> locations = sort(allLocations);
-        printResult(locations);
-    }
-
-    private List<Point> sort(Set<Point> allLocations)
-    {
-        List<Point> list = new ArrayList<Point>(allLocations);
-        Collections.sort(list, new PointComparator());
-        return list;
-    }
-
-    private void printResult(List<Point> locations)
-    {
-        for (Point location : locations)
+        for (int x = 0; x < map.getHeight(); x++)
         {
-            System.out.println(location);
+            for (int y = 0; y < map.getWidth(); y++)
+            {
+                Cell cell = map.getCell(x, y);
+                printOneCell(cell);
+            }
+            System.out.println();
         }
     }
 
-    private class PointComparator implements Comparator<Point>
+    private void printOneCell(Cell cell)
     {
-        public int compare(Point point1, Point point2)
-        {
-            int result = Double.compare(point1.x,point2.x);
-            if(result == 0)
-                result = Double.compare(point1.y, point2.y);
-            return result;
-        }
+        if(cell == null)
+            System.out.print("O");
+        else
+            System.out.print("X");
     }
 }

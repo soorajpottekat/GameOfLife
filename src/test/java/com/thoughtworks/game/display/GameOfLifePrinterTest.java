@@ -50,7 +50,7 @@ public class GameOfLifePrinterTest
     @Test
     public void mapPrinting() throws Exception
     {
-        Map map = new Map(2, 2);
+        Map map = new Map(3, 2);
         map.addCell(0,0,new Cell());
         map.addCell(0,1,new Cell());
         map.addCell(1,0,new Cell());
