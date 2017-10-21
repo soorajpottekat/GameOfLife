@@ -1,4 +1,4 @@
-package com.thoughtworks.game.map;
+package com.thoughtworks.game.component;
 /*
  * Copyright (c) Multichoice Technical Operations. All Rights Reserved.
  *
@@ -16,8 +16,6 @@ package com.thoughtworks.game.map;
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
 
-import com.thoughtworks.game.component.component.Cell;
-
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -30,7 +28,7 @@ import java.util.List;
 public class CellsCreator
 {
 
-    public Set<Point> createSeedsForMap(List<String> seeds)
+    public Set<Point> createCellsLocationFromSeed(List<String> seeds)
     {
         Set<Point> mapLocations = new HashSet<Point>();
         for(String seed : seeds)

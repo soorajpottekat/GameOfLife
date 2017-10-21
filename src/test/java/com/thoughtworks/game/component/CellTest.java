@@ -1,6 +1,5 @@
 package com.thoughtworks.game.component;
 
-import com.thoughtworks.game.component.component.Cell;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

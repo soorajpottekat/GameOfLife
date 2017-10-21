@@ -1,13 +1,11 @@
-package com.thoughtworks.game.map;
+package com.thoughtworks.game.component;
 
-import com.thoughtworks.game.component.component.Cell;
-import org.junit.Assert;
+import com.thoughtworks.game.component.CellsCreator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -51,7 +49,7 @@ public class CellsCreatorTest
     public void test_createLocationsWithEmptyArray() throws Exception
     {
         List<String> seeds = new ArrayList<String>();
-        final Set<Point> locations = cellsCreator.createSeedsForMap(seeds);
+        final Set<Point> locations = cellsCreator.createCellsLocationFromSeed(seeds);
         assertTrue(locations.isEmpty());
     }
 
@@ -60,7 +58,7 @@ public class CellsCreatorTest
     {
         List<String> seeds = new ArrayList<String>();
         seeds.add("2S,3");
-        final Set<Point> locations = cellsCreator.createSeedsForMap(seeds);
+        final Set<Point> locations = cellsCreator.createCellsLocationFromSeed(seeds);
     }
 
     @Test
@@ -68,7 +66,7 @@ public class CellsCreatorTest
     {
         List<String> seeds = new ArrayList<String>();
         seeds.add("2,3");
-        final Set<Point> locations = cellsCreator.createSeedsForMap(seeds);
+        final Set<Point> locations = cellsCreator.createCellsLocationFromSeed(seeds);
         assertEquals(1,locations.size());
     }
 
@@ -80,7 +78,7 @@ public class CellsCreatorTest
         seeds.add("2,1");
         seeds.add("2,2");
         seeds.add("2,5");
-        final Set<Point> locations = cellsCreator.createSeedsForMap(seeds);
+        final Set<Point> locations = cellsCreator.createCellsLocationFromSeed(seeds);
         assertEquals(4,locations.size());
     }
 

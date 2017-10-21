@@ -1,4 +1,4 @@
-package com.thoughtworks.game.component.component;
+package com.thoughtworks.game.component;
 
 /**
  * Created by Sooraj.Pottekat on 10/16/2017.

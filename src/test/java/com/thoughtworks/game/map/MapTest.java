@@ -1,6 +1,6 @@
 package com.thoughtworks.game.map;
 
-import com.thoughtworks.game.component.component.Cell;
+import com.thoughtworks.game.component.Cell;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;

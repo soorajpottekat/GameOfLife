@@ -16,10 +16,10 @@ package com.thoughtworks.game.map;
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
 
-import com.thoughtworks.game.component.component.Cell;
+import com.thoughtworks.game.component.Cell;
 
 import java.awt.*;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Created by Sooraj.Pottekat on 10/18/2017.
