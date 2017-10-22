@@ -51,17 +51,19 @@ public class GameEngine
 
     private void initialise(String[] applicationInput)
     {
+        if (applicationInput.length > 3)
+            readAndSetInput(applicationInput);
+        else
+            initialiseDefaultValues();
+    }
+
+    private void readAndSetInput(String[] applicationInput)
+    {
         try
         {
-            if (applicationInput.length > 3)
-            {
-                filePath = applicationInput[0];
-                mapWidth = Integer.valueOf(applicationInput[1]);
-                mapHeight = Integer.valueOf(applicationInput[2]);
-            } else
-            {
-                initialiseDefaultValues();
-            }
+            filePath = applicationInput[0];
+            mapWidth = Integer.valueOf(applicationInput[1]);
+            mapHeight = Integer.valueOf(applicationInput[2]);
         } catch (NumberFormatException numberFormatException)
         {
             LOGGER.severe("Application's input arguments are in correct");
@@ -81,6 +83,8 @@ public class GameEngine
         MapManager mapManager = new MapManager();
         List<String> seed = readSeedInput(filePath);
         Map map = initialiseMapWithSeed(mapManager, seed);
+        System.out.println("Initial Map");
+        printMap(map);
         forwardGenerations(mapManager, map);
     }
 
@@ -108,14 +112,22 @@ public class GameEngine
 
     private void forwardGenerations(MapManager mapManager, Map map)
     {
-        String result="";
+        String result = "";
         Scanner sc = new Scanner(System.in);
+        getUserInput(sc);
         while (!result.equals("-1"))
         {
             Map newGenMap = mapManager.forwardOneGenerations(map);
             printMap(newGenMap);
-            System.out.print(" Enter \"-1\" to exit press any key to continue : ");
-            result = sc.next();
+            result = getUserInput(sc);
         }
+    }
+
+    private String getUserInput(Scanner sc)
+    {
+        String result;
+        System.out.print(" Enter \"-1\" to exit press any key to continue : ");
+        result = sc.next();
+        return result;
     }
 }
