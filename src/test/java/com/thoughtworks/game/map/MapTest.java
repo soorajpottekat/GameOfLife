@@ -56,6 +56,24 @@ public class MapTest
         assertEquals(cell, newCell);
     }
 
+    @Test
+    public void mapAsymmetricInsertCorners() throws Exception
+    {
+        Map map = new Map(5, 3);
+        map.addCell(0, 0, cell);
+        Cell newCell = map.getCell(0, 0);
+        assertEquals(cell, newCell);
+        map.addCell(4, 2, cell);
+        newCell = map.getCell(4, 2);
+        assertEquals(cell, newCell);
+        map.addCell(0, 2, cell);
+        newCell = map.getCell(4, 2);
+        assertEquals(cell, newCell);
+        map.addCell(4, 0, cell);
+        newCell = map.getCell(4, 2);
+        assertEquals(cell, newCell);
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void insertNegativeXCoOrdinate() throws Exception
     {

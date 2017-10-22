@@ -40,7 +40,7 @@ public class MapManager
         ruleSet = new RuleSet();
     }
 
-    public  Map createMap(int width, int height)
+    public Map createMap(int width, int height)
     {
         return new Map(width, height);
     }
@@ -54,9 +54,9 @@ public class MapManager
     public Map forwardOneGenerations(Map map)
     {
         Map tempMap = createSnapShotOfMap(map.getWidth(), map.getHeight(), map.getAllLocations());
-        for (int x = 0; x < map.getHeight(); x++)
+        for (int y = 0; y < map.getHeight(); y++)
         {
-            for (int y = 0; y < map.getWidth(); y++)
+            for (int x = 0; x < map.getWidth(); x++)
             {
                 createNextGenerationOfCell(map, tempMap, x, y);
             }
@@ -78,7 +78,7 @@ public class MapManager
         final int numberOfLiveNeighbours = tempMap.getNumberOfLiveNeighbours(x, y);
         if (cell == null)
             generateDeadCell(map, x, y, numberOfLiveNeighbours);
-         else
+        else
             generateLiveCell(map, x, y, numberOfLiveNeighbours);
     }
 
