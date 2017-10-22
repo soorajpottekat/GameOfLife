@@ -33,9 +33,9 @@ public class GameOfLifePrinter
 
     public void printResult(Map map)
     {
-        for (int x = 0; x < map.getHeight(); x++)
+        for (int y = 0; y < map.getHeight(); y++)
         {
-            for (int y = 0; y < map.getWidth(); y++)
+            for (int x = 0; x < map.getWidth(); x++)
             {
                 Cell cell = map.getCell(x, y);
                 printOneCell(cell);
@@ -46,9 +46,9 @@ public class GameOfLifePrinter
 
     private void printOneCell(Cell cell)
     {
-        if(cell == null)
+        if (cell == null)
             System.out.print("-");
         else
-            System.out.print("X");
+            System.out.print("#");
     }
 }
