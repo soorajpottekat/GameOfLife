@@ -47,7 +47,7 @@ public class GameOfLifePrinter
     private void printOneCell(Cell cell)
     {
         if(cell == null)
-            System.out.print("O");
+            System.out.print("-");
         else
             System.out.print("X");
     }
