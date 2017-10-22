@@ -1,6 +1,5 @@
 package com.thoughtworks.game.map;
 
-import com.thoughtworks.game.component.Cell;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -52,7 +51,7 @@ public class MapManagerTest
     public void createZeroWidthHeightMapInsertElement() throws Exception
     {
         Map map = mapManager.createMap(0,0);
-        map.addCell(0,0,new Cell());
+        map.addCell(0,0,new Object());
     }
     @Test
     public void insertOneSeedIntoMap() throws Exception
@@ -61,7 +60,7 @@ public class MapManagerTest
         List<String> seeds = new ArrayList<String>();
         seeds.add("2,3");
         mapManager.insertSeedInputToMap(map,seeds);
-        HashMap<Point, Cell> allCells = map.getAllCells();
+        HashMap<Point, Object> allCells = map.getAllCells();
         assertEquals(1,allCells.size());
     }
     @Test
@@ -75,7 +74,7 @@ public class MapManagerTest
         seeds.add("2,2");
         seeds.add("2,4");
         mapManager.insertSeedInputToMap(map,seeds);
-        HashMap<Point, Cell> allCells = map.getAllCells();
+        HashMap<Point, Object> allCells = map.getAllCells();
         assertEquals(5,allCells.size());
     }
 

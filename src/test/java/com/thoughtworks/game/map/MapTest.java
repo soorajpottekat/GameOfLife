@@ -1,6 +1,5 @@
 package com.thoughtworks.game.map;
 
-import com.thoughtworks.game.component.Cell;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -32,13 +31,13 @@ import static org.junit.Assert.*;
 public class MapTest
 {
 
-    private static Cell cell;
+    private static Object cell;
     private final Map map = new Map(5, 5);
 
     @BeforeClass
     public static void setUp()
     {
-        cell = new Cell();
+        cell = new Object();
     }
 
     @After
@@ -52,7 +51,7 @@ public class MapTest
     {
         Map map = new Map(1, 1);
         map.addCell(0, 0, cell);
-        Cell newCell = map.getCell(0, 0);
+        Object newCell = map.getCell(0, 0);
         assertEquals(cell, newCell);
     }
 
@@ -61,7 +60,7 @@ public class MapTest
     {
         Map map = new Map(5, 3);
         map.addCell(0, 0, cell);
-        Cell newCell = map.getCell(0, 0);
+        Object newCell = map.getCell(0, 0);
         assertEquals(cell, newCell);
         map.addCell(4, 2, cell);
         newCell = map.getCell(4, 2);
@@ -95,7 +94,7 @@ public class MapTest
     @Test(expected = IllegalArgumentException.class)
     public void insertYCoOrdinateOutOfBound() throws Exception
     {
-        Cell cell = new Cell();
+        Object cell = new Object();
         map.addCell(0,6, cell);
     }
 
@@ -103,7 +102,7 @@ public class MapTest
     public void oneLiveNeighbour() throws Exception
     {
         map.addCell(2,3,cell);
-        Cell neighbour = new Cell();
+        Object neighbour = new Object();
         map.addCell(2,4,neighbour);
         int numberLiveNeighbours = map.getNumberOfLiveNeighbours(2,3);
         assertEquals(1,numberLiveNeighbours);
@@ -112,9 +111,6 @@ public class MapTest
     public void oneDeadNeighbour() throws Exception
     {
         map.addCell(2,3, cell);
-        Cell neighbour = new Cell();
-        neighbour.dies();
-        map.addCell(2,4,neighbour);
         int numberLiveNeighbours = map.getNumberOfLiveNeighbours(2,3);
         assertEquals(0,numberLiveNeighbours);
     }
@@ -122,14 +118,14 @@ public class MapTest
     public void allLiveNeighbours() throws Exception
     {
         map.addCell(2,3, cell);
-        map.addCell(1,2,new Cell());
-        map.addCell(1,3,new Cell());
-        map.addCell(1,4,new Cell());
-        map.addCell(2,2,new Cell());
-        map.addCell(2,4,new Cell());
-        map.addCell(3,2,new Cell());
-        map.addCell(3,3,new Cell());
-        map.addCell(3,4,new Cell());
+        map.addCell(1,2,new Object());
+        map.addCell(1,3,new Object());
+        map.addCell(1,4,new Object());
+        map.addCell(2,2,new Object());
+        map.addCell(2,4,new Object());
+        map.addCell(3,2,new Object());
+        map.addCell(3,3,new Object());
+        map.addCell(3,4,new Object());
         int numberLiveNeighbours = map.getNumberOfLiveNeighbours(2,3);
         assertEquals(8,numberLiveNeighbours);
     }
@@ -138,27 +134,12 @@ public class MapTest
     public void threeLiveFiveDeadNeighbours() throws Exception
     {
         map.addCell(2,3, cell);
-        Cell neighbourPos_1X2 = new Cell();
-        Cell neighbourPos_1X3 = new Cell();
-        Cell neighbourPos_1X4 = new Cell();
-        Cell neighbourPos_2X2 = new Cell();
-        Cell neighbourPos_2X4 = new Cell();
-        Cell neighbourPos_3X2 = new Cell();
-        Cell neighbourPos_3X3 = new Cell();
-        Cell neighbourPos_3X4 = new Cell();
-        neighbourPos_1X2.dies();
-        neighbourPos_1X4.dies();
-        neighbourPos_3X2.dies();
-        neighbourPos_3X3.dies();
-        neighbourPos_3X4.dies();
-        map.addCell(1,2,neighbourPos_1X2);
+        Object neighbourPos_1X3 = new Object();
+        Object neighbourPos_2X2 = new Object();
+        Object neighbourPos_2X4 = new Object();
         map.addCell(1,3,neighbourPos_1X3);
-        map.addCell(1,4,neighbourPos_1X4);
-        map.addCell(2,2,neighbourPos_2X2);
         map.addCell(2,4,neighbourPos_2X4);
-        map.addCell(3,2,neighbourPos_3X2);
-        map.addCell(3,3,neighbourPos_3X3);
-        map.addCell(3,4,neighbourPos_3X4);
+        map.addCell(2,2,neighbourPos_2X2);
         int numberLiveNeighbours = map.getNumberOfLiveNeighbours(2,3);
         assertEquals(3,numberLiveNeighbours);
     }

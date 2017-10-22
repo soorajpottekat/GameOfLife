@@ -1,6 +1,5 @@
 package com.thoughtworks.game.display;
 
-import com.thoughtworks.game.component.Cell;
 import com.thoughtworks.game.map.Map;
 import org.junit.After;
 import org.junit.Before;
@@ -51,10 +50,10 @@ public class GameOfLifePrinterTest
     public void mapPrinting() throws Exception
     {
         Map map = new Map(3, 2);
-        map.addCell(0,0,new Cell());
-        map.addCell(0,1,new Cell());
-        map.addCell(1,0,new Cell());
-        map.addCell(1,1,new Cell());
+        map.addCell(0,0,new Object());
+        map.addCell(0,1,new Object());
+        map.addCell(1,0,new Object());
+        map.addCell(1,1,new Object());
         new GameOfLifePrinter().printResult(map);
         BufferedReader actual = new BufferedReader(new FileReader("actual"));
         BufferedReader expected = new BufferedReader(new FileReader("src/test/java/resource/expected"));

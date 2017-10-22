@@ -16,7 +16,6 @@ package com.thoughtworks.game.map;
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
 
-import com.thoughtworks.game.component.Cell;
 import com.thoughtworks.game.component.CellsCreator;
 import com.thoughtworks.game.rule.RuleSet;
 
@@ -73,7 +72,7 @@ public class MapManager
 
     private void createNextGenerationOfCell(Map map, Map tempMap, int x, int y)
     {
-        Cell cell = map.getCell(x, y);
+        Object cell = map.getCell(x, y);
         boolean shouldLive = false;
         final int numberOfLiveNeighbours = tempMap.getNumberOfLiveNeighbours(x, y);
         if (cell == null)
@@ -87,7 +86,7 @@ public class MapManager
         boolean shouldLive;
         shouldLive = ruleSet.applyDeadCellRule(numberOfLiveNeighbours);
         if (shouldLive)
-            map.addCell(x, y, new Cell());
+            map.addCell(x, y, new Object());
     }
 
     private void generateLiveCell(Map map, int x, int y, int numberOfLiveNeighbours)

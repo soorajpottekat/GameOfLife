@@ -16,8 +16,6 @@ package com.thoughtworks.game.map;
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
 
-import com.thoughtworks.game.component.Cell;
-
 import java.awt.*;
 import java.util.*;
 
@@ -30,16 +28,16 @@ public class Map
 {
     private final int width;
     private final int height;
-    private HashMap<Point, Cell> cellsStore;
+    private HashMap<Point, Object> cellsStore;
 
     public Map(int width, int height)
     {
         this.width = width;
         this.height = height;
-        cellsStore = new HashMap<Point, Cell>();
+        cellsStore = new HashMap<Point, Object>();
     }
 
-    public void addCell(int x, int y, Cell cell)
+    public void addCell(int x, int y, Object cell)
     {
         if (isCoOrdinateInvalid(x, y))
             throw new IllegalArgumentException(
@@ -52,7 +50,7 @@ public class Map
         return x >= width || x < 0 || y >= height || y < 0;
     }
 
-    public Cell getCell(int x, int y)
+    public Object getCell(int x, int y)
     {
         return cellsStore.get(new Point(x, y));
     }
@@ -77,8 +75,8 @@ public class Map
     {
         if (!isCoOrdinateInvalid(neighbourX, neighbourY))
         {
-            Cell cell = getCell(neighbourX, neighbourY);
-            return cell != null && cell.isAlive();
+            Object cell = getCell(neighbourX, neighbourY);
+            return cell != null;
         }
         return false;
     }
@@ -88,7 +86,7 @@ public class Map
         cellsStore.clear();
     }
 
-    public HashMap<Point, Cell> getAllCells()
+    public HashMap<Point, Object> getAllCells()
     {
         return cellsStore;
     }
@@ -103,7 +101,7 @@ public class Map
 
     private void createCell(Point location)
     {
-        addCell(location.x, location.y, new Cell());
+        addCell(location.x, location.y, new Object());
     }
 
     public int getWidth()

@@ -16,12 +16,7 @@ package com.thoughtworks.game.display;
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
 
-import com.thoughtworks.game.component.Cell;
 import com.thoughtworks.game.map.Map;
-
-import java.awt.*;
-import java.util.*;
-import java.util.List;
 
 /**
  * Created by Sooraj.Pottekat on 10/21/2017.
@@ -37,14 +32,14 @@ public class GameOfLifePrinter
         {
             for (int x = 0; x < map.getWidth(); x++)
             {
-                Cell cell = map.getCell(x, y);
+                Object cell = map.getCell(x, y);
                 printOneCell(cell);
             }
             System.out.println();
         }
     }
 
-    private void printOneCell(Cell cell)
+    private void printOneCell(Object cell)
     {
         if (cell == null)
             System.out.print("-");
