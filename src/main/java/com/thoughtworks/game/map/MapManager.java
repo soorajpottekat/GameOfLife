@@ -51,16 +51,7 @@ public class MapManager
         map.populateWithCells(locations);
     }
 
-    public Map forwardNGenerations(Map map, int numberOfGenerations)
-    {
-        for (int i = 0; i < numberOfGenerations; i++)
-        {
-            map = forwardOneGenerations(map);
-        }
-        return map;
-    }
-
-    private Map forwardOneGenerations(Map map)
+    public Map forwardOneGenerations(Map map)
     {
         Map tempMap = createSnapShotOfMap(map.getWidth(), map.getHeight(), map.getAllLocations());
         for (int x = 0; x < map.getHeight(); x++)

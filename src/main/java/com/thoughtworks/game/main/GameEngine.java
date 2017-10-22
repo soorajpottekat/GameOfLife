@@ -23,6 +23,7 @@ import com.thoughtworks.game.map.Map;
 import com.thoughtworks.game.map.MapManager;
 
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Logger;
 
 /**
@@ -34,14 +35,12 @@ public class GameEngine
 {
     private static final Logger LOGGER = Logger.getLogger("GameEngine");
     private static final String DEFAULT_SEED_FILE_PATH = "src/main/resources/seed";
-    private static final int MAP_WIDTH = 100;
-    private static final int MAP_HEIGHT = 100;
-    private static final int DEFAULT_NUMBER_OF_GENERATIONS = 100;
+    private static final int MAP_WIDTH = 20;
+    private static final int MAP_HEIGHT = 10;
 
     private String filePath;
     private int mapWidth;
     private int mapHeight;
-    private int numberOfGenerations;
 
     public static void main(String[] args)
     {
@@ -54,12 +53,11 @@ public class GameEngine
     {
         try
         {
-            if (applicationInput.length > 4)
+            if (applicationInput.length > 3)
             {
                 filePath = applicationInput[0];
                 mapWidth = Integer.valueOf(applicationInput[1]);
                 mapHeight = Integer.valueOf(applicationInput[2]);
-                numberOfGenerations = Integer.valueOf(applicationInput[3]);
             } else
             {
                 initialiseDefaultValues();
@@ -76,7 +74,6 @@ public class GameEngine
         filePath = DEFAULT_SEED_FILE_PATH;
         mapWidth = MAP_WIDTH;
         mapHeight = MAP_HEIGHT;
-        numberOfGenerations = DEFAULT_NUMBER_OF_GENERATIONS;
     }
 
     private void startGame()
@@ -84,8 +81,7 @@ public class GameEngine
         MapManager mapManager = new MapManager();
         List<String> seed = readSeedInput(filePath);
         Map map = initialiseMapWithSeed(mapManager, seed);
-        Map newGenMap = mapManager.forwardNGenerations(map, numberOfGenerations);
-        printMap(newGenMap);
+        forwardGenerations(mapManager, map);
     }
 
     private List<String> readSeedInput(String filePath)
@@ -108,5 +104,18 @@ public class GameEngine
         // Display Current generation
         GameOfLifePrinter gameOfLifePrinter = new GameOfLifePrinter();
         gameOfLifePrinter.printResult(newGenMap);
+    }
+
+    private void forwardGenerations(MapManager mapManager, Map map)
+    {
+        String result="";
+        Scanner sc = new Scanner(System.in);
+        while (!result.equals("-1"))
+        {
+            Map newGenMap = mapManager.forwardOneGenerations(map);
+            printMap(newGenMap);
+            System.out.print(" Enter \"-1\" to exit press any key to continue : ");
+            result = sc.next();
+        }
     }
 }

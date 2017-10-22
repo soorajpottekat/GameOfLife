@@ -86,7 +86,7 @@ public class MapManagerTest
         List<String> seeds = new ArrayList<String>();
         seeds.add("2,3");
         mapManager.insertSeedInputToMap(map,seeds);
-        Map newGenMap = mapManager.forwardNGenerations(map, 1);
+        Map newGenMap = forwardNGenerations(map, 1);
         assertEquals(0,newGenMap.getAllCells().size());
     }
 
@@ -100,7 +100,7 @@ public class MapManagerTest
         seeds.add("3,3");
         seeds.add("3,4");
         mapManager.insertSeedInputToMap(map,seeds);
-        Map newGenMap = mapManager.forwardNGenerations(map, 1);
+        Map newGenMap = forwardNGenerations(map, 1);
         assertEquals(4,newGenMap.getAllCells().size());
         assertNotNull(newGenMap.getCell(2,3));
         assertNotNull(newGenMap.getCell(2,4));
@@ -118,7 +118,7 @@ public class MapManagerTest
         seeds.add("3,3");
         seeds.add("3,4");
         mapManager.insertSeedInputToMap(map,seeds);
-        Map newGenMap = mapManager.forwardNGenerations(map, 4);
+        Map newGenMap = forwardNGenerations(map, 4);
         assertEquals(4,newGenMap.getAllCells().size());
         assertNotNull(newGenMap.getCell(2,3));
         assertNotNull(newGenMap.getCell(2,4));
@@ -135,12 +135,12 @@ public class MapManagerTest
         seeds.add("2,3");
         seeds.add("3,3");
         mapManager.insertSeedInputToMap(map,seeds);
-        Map newGenMap = mapManager.forwardNGenerations(map, 1);
+        Map newGenMap = forwardNGenerations(map, 1);
         assertEquals(3,newGenMap.getAllCells().size());
         assertNotNull(newGenMap.getCell(2,2));
         assertNotNull(newGenMap.getCell(2,3));
         assertNotNull(newGenMap.getCell(2,4));
-        newGenMap = mapManager.forwardNGenerations(map, 1);
+        newGenMap = forwardNGenerations(map, 1);
         assertEquals(3,newGenMap.getAllCells().size());
         assertNotNull(newGenMap.getCell(1,3));
         assertNotNull(newGenMap.getCell(2,3));
@@ -148,7 +148,7 @@ public class MapManagerTest
     }
 
     @Test
-    public void generateOneGenerationStillLifeAsymmetric() throws Exception
+    public void generateOneGenerationStillLifeAsymmetricMap() throws Exception
     {
         Map map = mapManager.createMap(7, 5);
         List<String> seeds = new ArrayList<String>();
@@ -157,11 +157,19 @@ public class MapManagerTest
         seeds.add("3,3");
         seeds.add("3,4");
         mapManager.insertSeedInputToMap(map,seeds);
-        Map newGenMap = mapManager.forwardNGenerations(map, 1);
+        Map newGenMap = forwardNGenerations(map, 1);
         assertEquals(4,newGenMap.getAllCells().size());
         assertNotNull(newGenMap.getCell(2,3));
         assertNotNull(newGenMap.getCell(2,4));
         assertNotNull(newGenMap.getCell(3,3));
         assertNotNull(newGenMap.getCell(3,4));
+    }
+    private Map forwardNGenerations(Map map, int numberOfGenerations)
+    {
+        for (int i = 0; i < numberOfGenerations; i++)
+        {
+            map = mapManager.forwardOneGenerations(map);
+        }
+        return map;
     }
 }
