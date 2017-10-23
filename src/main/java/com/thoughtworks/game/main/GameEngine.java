@@ -51,7 +51,7 @@ public class GameEngine
 
     private void initialise(String[] applicationInput)
     {
-        if (applicationInput.length > 3)
+        if (applicationInput.length == 3)
             readAndSetInput(applicationInput);
         else
             initialiseDefaultValues();
