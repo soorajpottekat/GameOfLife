@@ -1,20 +1,4 @@
 package com.thoughtworks.game.main;
-/*
- * Copyright (c) Multichoice Technical Operations. All Rights Reserved.
- *
- * This software is the confidential and proprietary information of
- * Multichoice Technical Operations. ("Confidential Information"). You
- * shall not disclose such Confidential Information and shall use it
- * only in accordance with the terms of the license agreement you
- * entered into with Multichoice Technical Operations.
- *
- * MULTICHOICE MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE
- * SUITABILITY OF THE SOFTWARE, EITHER EXPRESS OR IMPLIED, INCLUDING
- * BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. MULTICHOICE
- * SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT
- * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
- */
 
 import com.thoughtworks.game.display.GameOfLifePrinter;
 import com.thoughtworks.game.input.InputReader;
@@ -49,7 +33,7 @@ public class GameEngine
         gameEngine.startGame();
     }
 
-    private void initialise(String[] applicationInput)
+    public void initialise(String[] applicationInput)
     {
         if (applicationInput.length == 3)
             readAndSetInput(applicationInput);
@@ -78,7 +62,7 @@ public class GameEngine
         mapHeight = MAP_HEIGHT;
     }
 
-    private void startGame()
+    public void startGame()
     {
         MapManager mapManager = new MapManager();
         List<String> seed = readSeedInput(filePath);
