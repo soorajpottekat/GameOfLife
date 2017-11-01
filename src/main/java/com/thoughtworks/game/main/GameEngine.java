@@ -1,6 +1,7 @@
 package com.thoughtworks.game.main;
 
 import com.thoughtworks.game.display.GameOfLifePrinter;
+import com.thoughtworks.game.generator.GameOfLifeGenerator;
 import com.thoughtworks.game.input.InputReader;
 import com.thoughtworks.game.input.SeedFileReader;
 import com.thoughtworks.game.map.Map;
@@ -83,7 +84,7 @@ public class GameEngine
     private Map initialiseMapWithSeed(MapManager mapManager, List<String> seed)
     {
         // Create Map using Map Manager
-        Map map = mapManager.createMap(mapWidth, mapHeight);
+        Map map = new Map(mapWidth, mapHeight);
         mapManager.insertSeedInputToMap(map, seed);
         return map;
     }
@@ -98,11 +99,12 @@ public class GameEngine
     private void forwardGenerations(MapManager mapManager, Map map)
     {
         String result = "";
+        GameOfLifeGenerator gameOfLifeGenerator = new GameOfLifeGenerator();
         Scanner sc = new Scanner(System.in);
         getUserInput(sc);
         while (!result.equals("-1"))
         {
-            Map newGenMap = mapManager.forwardOneGenerations(map);
+            Map newGenMap = gameOfLifeGenerator.forwardOneGenerations(map);
             printMap(newGenMap);
             result = getUserInput(sc);
         }

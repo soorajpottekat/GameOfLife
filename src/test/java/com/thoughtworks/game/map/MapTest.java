@@ -30,6 +30,20 @@ public class MapTest
     }
 
     @Test
+    public void createZeroWidthHeightMap() throws Exception
+    {
+        Map map = new Map(0,0);
+        assertNotNull(map);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void createZeroWidthHeightMapInsertElement() throws Exception
+    {
+        Map map = new Map(0,0);
+        map.addCell(0,0,new Object());
+    }
+
+    @Test
     public void mapOneWidthAndOneHeight() throws Exception
     {
         Map map = new Map(1, 1);
