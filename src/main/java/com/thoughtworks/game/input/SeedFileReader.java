@@ -68,8 +68,4 @@ public class SeedFileReader implements InputReader {
         }
     }
 
-    public void setFilePath(String filePath)
-    {
-        this.filePath = filePath;
-    }
 }

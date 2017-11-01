@@ -17,25 +17,19 @@ import static org.junit.Assert.assertEquals;
 public class SeedFileReaderTest
 {
 
-    private static SeedFileReader inputReader =null;
-
-    @BeforeClass
-    public static void setUp()
-    {
-        inputReader = new SeedFileReader(null);
-    }
+    private static SeedFileReader inputReader=null;
 
     @Test(expected = IllegalArgumentException.class)
     public void inputInvalidFilePath()
     {
-        inputReader.setFilePath("invalid");
+        inputReader = new SeedFileReader("invalid");
         inputReader.getSeed();
     }
 
     @Test
     public void readValidFile() throws Exception
     {
-        inputReader.setFilePath("src/test/java/input/DummyInput");
+        inputReader = new SeedFileReader("src/test/java/input/DummyInput");
         List<String> registeredEntries = inputReader.getSeed();
         assertEquals(registeredEntries.size(),0);
     }
@@ -43,7 +37,7 @@ public class SeedFileReaderTest
     @Test
     public void readFileWithOneEntry() throws Exception
     {
-        inputReader.setFilePath("src/test/java/input/OneEntry");
+        inputReader = new SeedFileReader("src/test/java/input/OneEntry");
         List<String> registeredEntries = inputReader.getSeed();
         assertEquals(registeredEntries.size(),1);
     }
@@ -51,7 +45,7 @@ public class SeedFileReaderTest
     @Test
     public void readFileWithMultipleEntry() throws Exception
     {
-        inputReader.setFilePath("src/test/java/input/MultipleEntry");
+        inputReader = new SeedFileReader("src/test/java/input/MultipleEntry");
         List<String> registeredEntries = inputReader.getSeed();
         assertEquals(registeredEntries.size(),3);
     }
