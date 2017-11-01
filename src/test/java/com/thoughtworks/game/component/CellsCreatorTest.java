@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 public class CellsCreatorTest
 {
 
-    private static CellsCreator cellsCreator = new CellsCreator();
+    private static CellsCreator cellsCreator;
 
     @BeforeClass
     public static void setUp()
