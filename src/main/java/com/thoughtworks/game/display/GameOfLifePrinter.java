@@ -1,6 +1,7 @@
 package com.thoughtworks.game.display;
 
 import com.thoughtworks.game.map.Map;
+import com.thoughtworks.game.output.Printer;
 
 /**
  * Created by Sooraj.Pottekat on 10/21/2017.
@@ -9,6 +10,12 @@ import com.thoughtworks.game.map.Map;
  */
 public class GameOfLifePrinter
 {
+    private final Printer printer;
+
+    public GameOfLifePrinter(Printer printer)
+    {
+        this.printer = printer;
+    }
     public void printResult(Map map)
     {
         for (int y = 0; y < map.getHeight(); y++)
@@ -18,15 +25,15 @@ public class GameOfLifePrinter
                 Object cell = map.getCell(x, y);
                 printOneCell(cell);
             }
-            System.out.println();
+            printer.printNewLine();
         }
     }
 
     private void printOneCell(Object cell)
     {
         if (cell == null)
-            System.out.print("-");
+            printer.printDeadCell();
         else
-            System.out.print("#");
+            printer.printLiveCell();
     }
 }

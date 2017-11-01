@@ -5,6 +5,7 @@ import com.thoughtworks.game.input.InputReader;
 import com.thoughtworks.game.input.SeedFileReader;
 import com.thoughtworks.game.map.Map;
 import com.thoughtworks.game.map.MapManager;
+import com.thoughtworks.game.output.ConsolePrinter;
 
 import java.util.List;
 import java.util.Scanner;
@@ -90,7 +91,7 @@ public class GameEngine
     private void printMap(Map newGenMap)
     {
         // Display Current generation
-        GameOfLifePrinter gameOfLifePrinter = new GameOfLifePrinter();
+        GameOfLifePrinter gameOfLifePrinter = new GameOfLifePrinter(new ConsolePrinter());
         gameOfLifePrinter.printResult(newGenMap);
     }
 
