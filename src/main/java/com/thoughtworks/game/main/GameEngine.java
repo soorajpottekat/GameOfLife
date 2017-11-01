@@ -2,14 +2,15 @@ package com.thoughtworks.game.main;
 
 import com.thoughtworks.game.display.GameOfLifePrinter;
 import com.thoughtworks.game.generator.GameOfLifeGenerator;
+import com.thoughtworks.game.input.ConsoleUserInputReader;
 import com.thoughtworks.game.input.InputReader;
 import com.thoughtworks.game.input.SeedFileReader;
+import com.thoughtworks.game.input.UserInputReader;
 import com.thoughtworks.game.map.Map;
 import com.thoughtworks.game.map.MapManager;
 import com.thoughtworks.game.output.ConsolePrinter;
 
 import java.util.List;
-import java.util.Scanner;
 import java.util.logging.Logger;
 
 /**
@@ -23,6 +24,8 @@ public class GameEngine
     private static final String DEFAULT_SEED_FILE_PATH = "src/main/resources/seed";
     private static final int MAP_WIDTH = 20;
     private static final int MAP_HEIGHT = 10;
+
+    private UserInputReader inputReader;
 
     private String filePath;
     private int mapWidth;
@@ -41,6 +44,7 @@ public class GameEngine
             readAndSetInput(applicationInput);
         else
             initialiseDefaultValues();
+        inputReader = new ConsoleUserInputReader();
     }
 
     private void readAndSetInput(String[] applicationInput)
@@ -99,21 +103,18 @@ public class GameEngine
     {
         String result = "";
         GameOfLifeGenerator gameOfLifeGenerator = new GameOfLifeGenerator();
-        Scanner sc = new Scanner(System.in);
-        getUserInput(sc);
+        result = getUserInput();
         while (!result.equals("-1"))
         {
             Map newGenMap = gameOfLifeGenerator.forwardOneGeneration(map);
             printMap(newGenMap);
-            result = getUserInput(sc);
+            result = getUserInput();
         }
     }
 
-    private String getUserInput(Scanner sc)
+    private String getUserInput()
     {
-        String result;
         System.out.print(" Enter \"-1\" to exit; press any key to continue : ");
-        result = sc.next();
-        return result;
+        return inputReader.getUserInput();
     }
 }
