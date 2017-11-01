@@ -66,12 +66,11 @@ public class GameEngine
 
     public void startGame()
     {
-        MapManager mapManager = new MapManager();
         List<String> seed = readSeedInput(filePath);
-        Map map = initialiseMapWithSeed(mapManager, seed);
+        Map map = initialiseMapWithSeed(seed);
         System.out.println("Initial Map");
         printMap(map);
-        forwardGenerations(mapManager, map);
+        forwardGenerations(map);
     }
 
     private List<String> readSeedInput(String filePath)
@@ -81,11 +80,11 @@ public class GameEngine
         return fileReader.getSeed();
     }
 
-    private Map initialiseMapWithSeed(MapManager mapManager, List<String> seed)
+    private Map initialiseMapWithSeed(List<String> seed)
     {
         // Create Map using Map Manager
         Map map = new Map(mapWidth, mapHeight);
-        mapManager.insertSeedInputToMap(map, seed);
+        new MapManager().insertSeedInputToMap(map, seed);
         return map;
     }
 
@@ -96,7 +95,7 @@ public class GameEngine
         gameOfLifePrinter.printResult(newGenMap);
     }
 
-    private void forwardGenerations(MapManager mapManager, Map map)
+    private void forwardGenerations(Map map)
     {
         String result = "";
         GameOfLifeGenerator gameOfLifeGenerator = new GameOfLifeGenerator();
@@ -104,7 +103,7 @@ public class GameEngine
         getUserInput(sc);
         while (!result.equals("-1"))
         {
-            Map newGenMap = gameOfLifeGenerator.forwardOneGenerations(map);
+            Map newGenMap = gameOfLifeGenerator.forwardOneGeneration(map);
             printMap(newGenMap);
             result = getUserInput(sc);
         }
@@ -113,7 +112,7 @@ public class GameEngine
     private String getUserInput(Scanner sc)
     {
         String result;
-        System.out.print(" Enter \"-1\" to exit press any key to continue : ");
+        System.out.print(" Enter \"-1\" to exit; press any key to continue : ");
         result = sc.next();
         return result;
     }

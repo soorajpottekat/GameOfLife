@@ -114,7 +114,7 @@ public class GameOfLifeGeneratorTest
     {
         for (int i = 0; i < numberOfGenerations; i++)
         {
-            map = gameOfLifeGenerator.forwardOneGenerations(map);
+            map = gameOfLifeGenerator.forwardOneGeneration(map);
         }
         return map;
     }

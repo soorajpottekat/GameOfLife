@@ -20,7 +20,6 @@ import com.thoughtworks.game.map.Map;
 import com.thoughtworks.game.rule.RuleSet;
 
 import java.awt.*;
-import java.util.Scanner;
 import java.util.Set;
 
 /**
@@ -35,23 +34,22 @@ public class GameOfLifeGenerator
     {
         ruleSet = new RuleSet();
     }
-    public Map forwardOneGenerations(Map map)
+    public Map forwardOneGeneration(Map map)
     {
         Map tempMap = createSnapShotOfMap(map.getWidth(), map.getHeight(), map.getAllLocations());
         for (int y = 0; y < map.getHeight(); y++)
         {
             for (int x = 0; x < map.getWidth(); x++)
             {
-                createNextGenerationOfCell(map, tempMap, x, y);
+                generateNextGenerationOfACell(map, tempMap, x, y);
             }
         }
         return map;
     }
 
-    private void createNextGenerationOfCell(Map map, Map tempMap, int x, int y)
+    private void generateNextGenerationOfACell(Map map, Map tempMap, int x, int y)
     {
         Object cell = map.getCell(x, y);
-        boolean shouldLive = false;
         final int numberOfLiveNeighbours = tempMap.getNumberOfLiveNeighbours(x, y);
         if (cell == null)
             generateDeadCell(map, x, y, numberOfLiveNeighbours);
