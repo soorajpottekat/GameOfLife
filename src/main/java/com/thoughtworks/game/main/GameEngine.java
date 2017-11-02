@@ -1,5 +1,6 @@
 package com.thoughtworks.game.main;
 
+import com.thoughtworks.game.controller.GameController;
 import com.thoughtworks.game.display.GameOfLifePrinter;
 import com.thoughtworks.game.generator.GameOfLifeGenerator;
 import com.thoughtworks.game.input.ConsoleUserInputReader;
@@ -25,7 +26,7 @@ public class GameEngine
     private static final int MAP_WIDTH = 20;
     private static final int MAP_HEIGHT = 10;
 
-    private UserInputReader inputReader;
+
 
     private String filePath;
     private int mapWidth;
@@ -44,7 +45,6 @@ public class GameEngine
             readAndSetInput(applicationInput);
         else
             initialiseDefaultValues();
-        inputReader = new ConsoleUserInputReader();
     }
 
     private void readAndSetInput(String[] applicationInput)
@@ -70,51 +70,11 @@ public class GameEngine
 
     public void startGame()
     {
-        List<String> seed = readSeedInput(filePath);
-        Map map = initialiseMapWithSeed(seed);
+        GameController gameController = new GameController(new ConsoleUserInputReader());
+        List<String> seed = gameController.readSeedInput(filePath);
+        Map map = gameController.initialiseMapWithSeed(seed,mapWidth,mapHeight);
         System.out.println("Initial Map");
-        printMap(map);
-        forwardGenerations(map);
-    }
-
-    private List<String> readSeedInput(String filePath)
-    {
-        // read the input seed
-        InputReader fileReader = new SeedFileReader(filePath);
-        return fileReader.getSeed();
-    }
-
-    private Map initialiseMapWithSeed(List<String> seed)
-    {
-        // Create Map using Map Manager
-        Map map = new Map(mapWidth, mapHeight);
-        new MapManager().insertSeedInputToMap(map, seed);
-        return map;
-    }
-
-    private void printMap(Map newGenMap)
-    {
-        // Display Current generation
-        GameOfLifePrinter gameOfLifePrinter = new GameOfLifePrinter(new ConsolePrinter());
-        gameOfLifePrinter.printResult(newGenMap);
-    }
-
-    private void forwardGenerations(Map map)
-    {
-        String result = "";
-        GameOfLifeGenerator gameOfLifeGenerator = new GameOfLifeGenerator();
-        result = getUserInput();
-        while (!result.equals("-1"))
-        {
-            Map newGenMap = gameOfLifeGenerator.forwardOneGeneration(map);
-            printMap(newGenMap);
-            result = getUserInput();
-        }
-    }
-
-    private String getUserInput()
-    {
-        System.out.print(" Enter \"-1\" to exit; press any key to continue : ");
-        return inputReader.getUserInput();
+        gameController.printMap(map);
+        gameController.forwardGenerations(map);
     }
 }
