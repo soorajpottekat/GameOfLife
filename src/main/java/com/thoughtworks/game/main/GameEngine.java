@@ -21,7 +21,6 @@ import java.util.logging.Logger;
  */
 public class GameEngine
 {
-    private static final Logger LOGGER = Logger.getLogger("GameEngine");
     private static final String DEFAULT_SEED_FILE_PATH = "src/main/resources/seed";
     private static final int MAP_WIDTH = 20;
     private static final int MAP_HEIGHT = 10;
@@ -56,7 +55,6 @@ public class GameEngine
             mapHeight = Integer.valueOf(applicationInput[2]);
         } catch (NumberFormatException numberFormatException)
         {
-            LOGGER.severe("Application's input arguments are in correct");
             initialiseDefaultValues();
         }
     }
