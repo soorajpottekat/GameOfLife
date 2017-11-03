@@ -82,26 +82,33 @@ public class GameControllerTest
                 "-#-\n";
         assertEquals(expected,outContent.toString());
     }
-    @Ignore
     @Test
     public void forwardOneGenerationWithBlinkerPattern() throws Exception
     {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        ByteArrayInputStream input = new ByteArrayInputStream("a\n-1".getBytes());
+        System.setIn(input);
         gameController = new GameController(new ConsoleUserInputReader());
         List<String> entries = createEntries();
         Map map = gameController.initialiseMapWithSeed(entries, 3, 3);
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
         verifyTheInputMap(map, outContent);
-        ByteArrayInputStream input = new ByteArrayInputStream("-1".getBytes());
-        System.setIn(input);
         gameController.forwardGenerations(map);
-        String expected = "---\n" +
-                "-##\n" +
-                "-##\n";
+        String expected = result();
         assertEquals(expected,outContent.toString());
-        input = new ByteArrayInputStream("-1".getBytes());
-        System.setIn(input);
         System.setOut(System.out);
         System.setIn(System.in);
+    }
+
+    private String result()
+    {
+        String step1 = "---\n" +
+                "-##\n" +
+                "-#-\n";
+        String userMessage = " Enter \"-1\" to exit; press any key to continue : ";
+        String step2 = "---\n" +
+                "-##\n" +
+                "-##\n";
+        return step1 + userMessage + step2 + userMessage;
     }
 }
