@@ -22,12 +22,8 @@ public class GameOfLifeGenerator
     {
         Map tempMap = createSnapShotOfMap(map.getWidth(), map.getHeight(), map.getAllLocations());
         for (int y = 0; y < map.getHeight(); y++)
-        {
             for (int x = 0; x < map.getWidth(); x++)
-            {
                 generateNextGenerationOfACell(map, tempMap, x, y);
-            }
-        }
         return map;
     }
 

@@ -21,10 +21,7 @@ public class GameOfLifePrinter
         for (int y = 0; y < map.getHeight(); y++)
         {
             for (int x = 0; x < map.getWidth(); x++)
-            {
-                Object cell = map.getCell(x, y);
-                printOneCell(cell);
-            }
+                printOneCell(map.getCell(x, y));
             printer.printNewLine();
         }
     }

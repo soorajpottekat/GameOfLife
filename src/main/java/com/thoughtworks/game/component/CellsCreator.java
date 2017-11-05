@@ -15,9 +15,7 @@ public class CellsCreator
     {
         Set<Point> mapLocations = new HashSet<Point>();
         for(String seed : seeds)
-        {
             mapLocations.add(createLocation(seed));
-        }
         return mapLocations;
     }
 

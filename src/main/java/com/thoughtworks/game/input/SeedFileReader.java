@@ -51,9 +51,7 @@ public class SeedFileReader implements InputReader {
         List<String> registeredEntries = new ArrayList<String>();
         String line;
         while ((line = reader.readLine()) != null)
-        {
             registeredEntries.add(line);
-        }
         return registeredEntries;
     }
 

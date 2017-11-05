@@ -78,9 +78,7 @@ public class Map
     public void populateWithCells(Set<Point> locations)
     {
         for (Point location : locations)
-        {
             createCell(location);
-        }
     }
 
     private void createCell(Point location)
