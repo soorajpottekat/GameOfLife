@@ -4,6 +4,7 @@ import com.thoughtworks.game.display.GameOfLifePrinterTest;
 import com.thoughtworks.game.generator.GameOfLifeGeneratorTest;
 import com.thoughtworks.game.input.ConsoleUserInputReaderTest;
 import com.thoughtworks.game.input.SeedFileReaderTest;
+import com.thoughtworks.game.main.GameEngineTest;
 import com.thoughtworks.game.map.MapManagerTest;
 import com.thoughtworks.game.map.MapTest;
 import com.thoughtworks.game.output.ConsolePrinterTest;
@@ -28,7 +29,8 @@ import org.junit.runners.Suite.SuiteClasses;
         ConsolePrinterTest.class,
         GameOfLifeGeneratorTest.class,
         ConsoleUserInputReaderTest.class,
-        GameControllerTest.class
+        GameControllerTest.class,
+        GameEngineTest.class
 })
 public class TestSuite
 {

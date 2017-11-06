@@ -25,15 +25,20 @@ public class GameEngine
     private static final int MAP_WIDTH = 20;
     private static final int MAP_HEIGHT = 10;
 
-
-
     private String filePath;
     private int mapWidth;
     private int mapHeight;
 
+    private GameController controller;
+
+    public GameEngine(GameController gameController)
+    {
+        this.controller = gameController;
+    }
+
     public static void main(String[] args)
     {
-        GameEngine gameEngine = new GameEngine();
+        GameEngine gameEngine = new GameEngine(new GameController(new ConsoleUserInputReader()));
         gameEngine.initialise(args);
         gameEngine.startGame();
     }
@@ -68,11 +73,10 @@ public class GameEngine
 
     public void startGame()
     {
-        GameController gameController = new GameController(new ConsoleUserInputReader());
-        List<String> seed = gameController.readSeedInput(filePath);
-        Map map = gameController.initialiseMapWithSeed(seed,mapWidth,mapHeight);
+        List<String> seed = controller.readSeedInput(filePath);
+        Map map = controller.initialiseMapWithSeed(seed,mapWidth,mapHeight);
         System.out.println("Initial Map");
-        gameController.printMap(map);
-        gameController.forwardGenerations(map);
+        controller.printMap(map);
+        controller.forwardGenerations(map);
     }
 }
