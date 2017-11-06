@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  */
 public class MapManagerTest
 {
-    public static MapManager mapManager = null;
+    private static MapManager mapManager;
     @BeforeClass
     public static void setUp()
     {

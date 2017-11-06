@@ -32,28 +32,30 @@ public class ConsoleUserInputReaderTest
     @Test
     public void getUserInputOneLetterInput() throws Exception
     {
-        ByteArrayInputStream input = new ByteArrayInputStream("d".getBytes());
+        String inputString = "d";
+        verifyUserInput(inputString);
+    }
+
+    private void verifyUserInput(String inputString)
+    {
+        ByteArrayInputStream input = new ByteArrayInputStream(inputString.getBytes());
         System.setIn(input);
         String userInput = new ConsoleUserInputReader().getUserInput();
-        assertEquals("d",userInput);
+        assertEquals(inputString,userInput);
     }
 
     @Test
     public void getUserInputOneStringInput() throws Exception
     {
-        ByteArrayInputStream input = new ByteArrayInputStream("hello".getBytes());
-        System.setIn(input);
-        String userInput = new ConsoleUserInputReader().getUserInput();
-        assertEquals("hello",userInput);
+        String inputString = "hello";
+        verifyUserInput(inputString);
     }
 
     @Test
     public void getUserInputMinusOne() throws Exception
     {
-        ByteArrayInputStream input = new ByteArrayInputStream("-1".getBytes());
-        System.setIn(input);
-        String userInput = new ConsoleUserInputReader().getUserInput();
-        assertEquals("-1",userInput);
+        String inputString = "-1";
+        verifyUserInput(inputString);
     }
 
 }

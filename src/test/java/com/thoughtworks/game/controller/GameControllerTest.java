@@ -29,8 +29,10 @@ public class GameControllerTest
     }
 
     @AfterClass
-    public static void tearDown() throws Exception
+    public static void cleanUp() throws Exception
     {
+        System.setOut(System.out);
+        System.setIn(System.in);
     }
 
     @Test
@@ -68,10 +70,8 @@ public class GameControllerTest
     {
         List<String> entries = createEntries();
         Map map = gameController.initialiseMapWithSeed(entries, 3, 3);
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
+        ByteArrayOutputStream outContent = setUserOutputStream();
         verifyTheInputMap(map, outContent);
-        System.setOut(System.out);
     }
 
     private void verifyTheInputMap(Map map, ByteArrayOutputStream outContent)
@@ -85,22 +85,31 @@ public class GameControllerTest
     @Test
     public void forwardOneGenerationWithBlinkerPattern() throws Exception
     {
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        ByteArrayInputStream input = new ByteArrayInputStream("a\n-1".getBytes());
-        System.setIn(input);
+        ByteArrayOutputStream outContent = setUserOutputStream();
+        setUserInput();
         gameController = new GameController(new ConsoleUserInputReader());
         List<String> entries = createEntries();
         Map map = gameController.initialiseMapWithSeed(entries, 3, 3);
         verifyTheInputMap(map, outContent);
         gameController.forwardGenerations(map);
-        String expected = result();
+        String expected = expectedOutput();
         assertEquals(expected,outContent.toString());
-        System.setOut(System.out);
-        System.setIn(System.in);
     }
 
-    private String result()
+    private void setUserInput()
+    {
+        ByteArrayInputStream input = new ByteArrayInputStream("a\n-1".getBytes());
+        System.setIn(input);
+    }
+
+    private ByteArrayOutputStream setUserOutputStream()
+    {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        return outContent;
+    }
+
+    private String expectedOutput()
     {
         String step1 = "---\n" +
                 "-##\n" +
