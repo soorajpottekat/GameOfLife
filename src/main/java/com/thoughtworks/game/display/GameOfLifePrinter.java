@@ -1,6 +1,7 @@
 package com.thoughtworks.game.display;
 
 import com.thoughtworks.game.map.Map;
+import com.thoughtworks.game.output.MessagePrinter;
 import com.thoughtworks.game.output.Printer;
 
 /**
@@ -11,11 +12,14 @@ import com.thoughtworks.game.output.Printer;
 public class GameOfLifePrinter
 {
     private final Printer printer;
+    private final MessagePrinter messagePrinter;
 
-    public GameOfLifePrinter(Printer printer)
+    public GameOfLifePrinter(Printer printer, MessagePrinter messagePrinter)
     {
         this.printer = printer;
+        this.messagePrinter = messagePrinter;
     }
+
     public void printResult(Map map)
     {
         for (int y = 0; y < map.getHeight(); y++)
@@ -32,5 +36,10 @@ public class GameOfLifePrinter
             printer.printDeadCell();
         else
             printer.printLiveCell();
+    }
+
+    public void printUserMessage()
+    {
+        messagePrinter.printUserMessage();
     }
 }

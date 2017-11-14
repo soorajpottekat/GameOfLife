@@ -1,18 +1,7 @@
 package com.thoughtworks.game.main;
 
+import com.thoughtworks.game.controller.Controller;
 import com.thoughtworks.game.controller.GameController;
-import com.thoughtworks.game.display.GameOfLifePrinter;
-import com.thoughtworks.game.generator.GameOfLifeGenerator;
-import com.thoughtworks.game.input.ConsoleUserInputReader;
-import com.thoughtworks.game.input.InputReader;
-import com.thoughtworks.game.input.SeedFileReader;
-import com.thoughtworks.game.input.UserInputReader;
-import com.thoughtworks.game.map.Map;
-import com.thoughtworks.game.map.MapManager;
-import com.thoughtworks.game.output.ConsolePrinter;
-
-import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created by Sooraj.Pottekat on 10/16/2017.
@@ -21,7 +10,7 @@ import java.util.logging.Logger;
  */
 public class GameEngine
 {
-    private static final String DEFAULT_SEED_FILE_PATH = "src/main/resources/seed";
+    private static final String DEFAULT_SEED_FILE_PATH = "./src/main/resources/seed";
     private static final int MAP_WIDTH = 20;
     private static final int MAP_HEIGHT = 10;
 
@@ -29,21 +18,14 @@ public class GameEngine
     private int mapWidth;
     private int mapHeight;
 
-    private GameController controller;
+    private Controller controller;
 
-    public GameEngine(GameController gameController)
+    public GameEngine(Controller gameController)
     {
         this.controller = gameController;
     }
 
-    public static void main(String[] args)
-    {
-        GameEngine gameEngine = new GameEngine(new GameController(new ConsoleUserInputReader()));
-        gameEngine.initialise(args);
-        gameEngine.startGame();
-    }
-
-    public void initialise(String[] applicationInput)
+    private void initialise(String[] applicationInput)
     {
         if (applicationInput.length == 3)
             readAndSetInput(applicationInput);
@@ -71,12 +53,9 @@ public class GameEngine
         mapHeight = MAP_HEIGHT;
     }
 
-    public void startGame()
+    public void startGame(String[] args)
     {
-        List<String> seed = controller.readSeedInput(filePath);
-        Map map = controller.initialiseMapWithSeed(seed,mapWidth,mapHeight);
-        System.out.println("Initial Map");
-        controller.printMap(map);
-        controller.forwardGenerations(map);
+        initialise(args);
+        controller.forwardGenerations(filePath,mapWidth,mapHeight);
     }
 }

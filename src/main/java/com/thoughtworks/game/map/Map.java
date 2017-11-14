@@ -44,14 +44,14 @@ public class Map
     {
         int neighbourCount = 0;
         // Checking the surrounding cells
-        neighbourCount = isCellAlive(x-1,y-1)? ++neighbourCount:neighbourCount;//top left
-        neighbourCount = isCellAlive(x-1,y)? ++neighbourCount:neighbourCount;//top center
-        neighbourCount = isCellAlive(x-1,y+1)? ++neighbourCount:neighbourCount;//top right
-        neighbourCount = isCellAlive(x,y-1)? ++neighbourCount:neighbourCount;//left
-        neighbourCount = isCellAlive(x,y+1)? ++neighbourCount:neighbourCount;//right
-        neighbourCount = isCellAlive(x+1,y-1)? ++neighbourCount:neighbourCount;//bottom left
-        neighbourCount = isCellAlive(x+1,y)? ++neighbourCount:neighbourCount;//bottom center
-        neighbourCount = isCellAlive(x+1,y+1)? ++neighbourCount:neighbourCount;//bottom right
+        neighbourCount = isCellAlive(x - 1, y - 1) ? ++neighbourCount : neighbourCount;//top left
+        neighbourCount = isCellAlive(x - 1, y) ? ++neighbourCount : neighbourCount;//top center
+        neighbourCount = isCellAlive(x - 1, y + 1) ? ++neighbourCount : neighbourCount;//top right
+        neighbourCount = isCellAlive(x, y - 1) ? ++neighbourCount : neighbourCount;//left
+        neighbourCount = isCellAlive(x, y + 1) ? ++neighbourCount : neighbourCount;//right
+        neighbourCount = isCellAlive(x + 1, y - 1) ? ++neighbourCount : neighbourCount;//bottom left
+        neighbourCount = isCellAlive(x + 1, y) ? ++neighbourCount : neighbourCount;//bottom center
+        neighbourCount = isCellAlive(x + 1, y + 1) ? ++neighbourCount : neighbourCount;//bottom right
         return neighbourCount;
     }
 
@@ -63,11 +63,6 @@ public class Map
             return cell != null;
         }
         return false;
-    }
-
-    public void clear()
-    {
-        cellsStore.clear();
     }
 
     public HashMap<Point, Object> getAllCells()
@@ -104,5 +99,16 @@ public class Map
     public void remove(int x, int y)
     {
         cellsStore.remove(new Point(x, y));
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof Map)
+        {
+            Map tempMap = (Map) obj;
+            return tempMap.width == width && tempMap.height == height && tempMap.getAllLocations().equals(getAllLocations());
+        }
+        return false;
     }
 }

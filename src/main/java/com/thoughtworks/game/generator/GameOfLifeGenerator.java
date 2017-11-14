@@ -14,10 +14,12 @@ import java.util.Set;
 public class GameOfLifeGenerator
 {
     private RuleSet ruleSet;
+
     public GameOfLifeGenerator()
     {
         ruleSet = new RuleSet();
     }
+
     public Map forwardOneGeneration(Map map)
     {
         Map tempMap = createSnapShotOfMap(map.getWidth(), map.getHeight(), map.getAllLocations());
@@ -53,7 +55,7 @@ public class GameOfLifeGenerator
             map.remove(x, y);
     }
 
-    public Map createSnapShotOfMap(int width, int height, Set<Point> allLocations)
+    private Map createSnapShotOfMap(int width, int height, Set<Point> allLocations)
     {
         Map tempMap = new Map(width, height);
         tempMap.populateWithCells(allLocations);

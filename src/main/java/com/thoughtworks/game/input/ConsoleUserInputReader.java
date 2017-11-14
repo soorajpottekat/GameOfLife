@@ -1,5 +1,6 @@
 package com.thoughtworks.game.input;
 
+import java.io.InputStream;
 import java.util.Scanner;
 
 /**
@@ -11,10 +12,11 @@ public class ConsoleUserInputReader implements UserInputReader
 {
     private Scanner scanner;
 
-    public ConsoleUserInputReader()
+    public ConsoleUserInputReader(InputStream stream)
     {
-        scanner = new Scanner(System.in);
+        scanner = new Scanner(stream);
     }
+
     public String getUserInput()
     {
         return scanner.next();

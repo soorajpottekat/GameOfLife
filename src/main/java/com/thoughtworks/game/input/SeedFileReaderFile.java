@@ -10,15 +10,16 @@ import java.util.logging.Logger;
  *
  * @author Sooraj Pottekat
  */
-public class SeedFileReader implements InputReader {
-    private static final Logger LOGGER = Logger.getLogger("SeedFileReader");
-    private String filePath;
+public class SeedFileReaderFile implements FileInputReader
+{
+    private static final Logger LOGGER = Logger.getLogger("SeedFileReaderFile");
 
-    public SeedFileReader(String filePath)
+    public SeedFileReaderFile()
     {
-        this.filePath = filePath;
     }
-    public List<String> getSeed() throws IllegalArgumentException {
+
+    public List<String> getSeed(String filePath) throws IllegalArgumentException
+    {
         List<String> seed;
         BufferedReader reader = null;
         try
@@ -34,11 +35,13 @@ public class SeedFileReader implements InputReader {
         {
             throw new IllegalArgumentException(" Please check the file, an error occurred while reading the file");
         }
-        finally {
+        finally
+        {
             close(reader);
         }
         return seed;
     }
+
     private BufferedReader openFile(String filePath) throws FileNotFoundException
     {
         File file = new File(filePath);
@@ -51,16 +54,22 @@ public class SeedFileReader implements InputReader {
         List<String> registeredEntries = new ArrayList<String>();
         String line;
         while ((line = reader.readLine()) != null)
+        {
             registeredEntries.add(line);
+        }
         return registeredEntries;
     }
 
     private void close(BufferedReader reader)
     {
-        if(reader != null) {
-            try {
+        if (reader != null)
+        {
+            try
+            {
                 reader.close();
-            } catch (IOException ioe) {
+            }
+            catch (IOException ioe)
+            {
                 LOGGER.warning(" Failed to close the seed file reader");
             }
         }

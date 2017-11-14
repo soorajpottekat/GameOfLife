@@ -17,7 +17,6 @@ public class RuleSet
     {
         return numberOfLiveNeighbours == 2 || numberOfLiveNeighbours == 3;
     }
-
     public boolean applyDeadCellRule(int numberOfLiveNeighbours)
     {
         return numberOfLiveNeighbours == 3;

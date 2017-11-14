@@ -2,12 +2,10 @@ package com.thoughtworks.game.controller;
 
 import com.thoughtworks.game.display.GameOfLifePrinter;
 import com.thoughtworks.game.generator.GameOfLifeGenerator;
-import com.thoughtworks.game.input.InputReader;
-import com.thoughtworks.game.input.SeedFileReader;
+import com.thoughtworks.game.input.FileInputReader;
 import com.thoughtworks.game.input.UserInputReader;
 import com.thoughtworks.game.map.Map;
 import com.thoughtworks.game.map.MapManager;
-import com.thoughtworks.game.output.ConsolePrinter;
 
 import java.util.List;
 
@@ -15,54 +13,56 @@ import java.util.List;
  * Created by Sooraj.Pottekat on 11/2/2017.
  *
  * @author Sooraj Pottekat
+ *
  */
-public class GameController
+public class GameController implements Controller
 {
     private UserInputReader inputReader;
+    private FileInputReader fileInputReader;
+    private GameOfLifePrinter gameOfLifePrinter;
+    private Map map;
 
-    public GameController(UserInputReader inputReader)
+    public GameController(FileInputReader fileInputReader, UserInputReader inputReader, GameOfLifePrinter gameOfLifePrinter)
     {
         this.inputReader = inputReader;
+        this.fileInputReader = fileInputReader;
+        this.gameOfLifePrinter = gameOfLifePrinter;
     }
 
-    public List<String> readSeedInput(String filePath)
+    public void forwardGenerations(String filePath, int mapWidth, int mapHeight)
     {
-        // read the input seed
-        InputReader fileReader = new SeedFileReader(filePath);
-        return fileReader.getSeed();
+        initialiseMapWithSeed(filePath, mapWidth, mapHeight);
+        printMap();
+        forwardGenerations();
     }
 
-    public Map initialiseMapWithSeed(List<String> seed, int mapWidth, int mapHeight)
+    private void initialiseMapWithSeed(String filePath, int mapWidth, int mapHeight)
     {
-        // Create Map using Map Manager
-        Map map = new Map(mapWidth, mapHeight);
+        List<String> seed = fileInputReader.getSeed(filePath);
+        this.map = new Map(mapWidth, mapHeight);
         new MapManager().insertSeedInputToMap(map, seed);
-        return map;
     }
 
-    public void printMap(Map newGenMap)
+    private void printMap()
     {
-        // Display Current generation
-        GameOfLifePrinter gameOfLifePrinter = new GameOfLifePrinter(new ConsolePrinter());
-        gameOfLifePrinter.printResult(newGenMap);
+        gameOfLifePrinter.printResult(map);
     }
 
-    public void forwardGenerations(Map map)
+    private void forwardGenerations()
     {
-        String result = "";
         GameOfLifeGenerator gameOfLifeGenerator = new GameOfLifeGenerator();
-        result = getUserInput();
+        String result = getUserInput();
         while (!result.equals("-1"))
         {
-            Map newGenMap = gameOfLifeGenerator.forwardOneGeneration(map);
-            printMap(newGenMap);
+            map = gameOfLifeGenerator.forwardOneGeneration(map);
+            printMap();
             result = getUserInput();
         }
     }
 
     private String getUserInput()
     {
-        System.out.print(" Enter \"-1\" to exit; press any key to continue : ");
+        gameOfLifePrinter.printUserMessage();
         return inputReader.getUserInput();
     }
 }

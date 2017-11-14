@@ -7,6 +7,7 @@ import java.util.List;
  *
  * @author Sooraj Pottekat
  */
-public interface InputReader {
-    List<String> getSeed() throws IllegalArgumentException;
+public interface FileInputReader
+{
+    List<String> getSeed(String filePath) throws IllegalArgumentException;
 }
