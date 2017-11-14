@@ -36,6 +36,7 @@ public class RuleSetTest
         shouldKeptAlive = ruleSet.applyLiveCellRules(3);
         assertTrue(shouldKeptAlive);
     }
+
     @Test
     public void applyRulesTestRule3() throws Exception
     {

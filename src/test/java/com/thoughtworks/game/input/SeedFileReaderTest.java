@@ -1,7 +1,6 @@
 package com.thoughtworks.game.input;
 
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.List;
@@ -17,36 +16,36 @@ import static org.junit.Assert.assertEquals;
 public class SeedFileReaderTest
 {
 
-    private static SeedFileReader inputReader=null;
+    private SeedFileReaderFile inputReader;
 
     @Test(expected = IllegalArgumentException.class)
     public void inputInvalidFilePath()
     {
-        inputReader = new SeedFileReader("invalid");
-        inputReader.getSeed();
+        inputReader = new SeedFileReaderFile();
+        inputReader.getSeed("invalid");
     }
 
     @Test
     public void readValidFile() throws Exception
     {
-        inputReader = new SeedFileReader("src/test/java/input/DummyInput");
-        List<String> registeredEntries = inputReader.getSeed();
-        assertEquals(registeredEntries.size(),0);
+        inputReader = new SeedFileReaderFile();
+        List<String> registeredEntries = inputReader.getSeed("src/test/java/input/DummyInput");
+        assertEquals(registeredEntries.size(), 0);
     }
 
     @Test
     public void readFileWithOneEntry() throws Exception
     {
-        inputReader = new SeedFileReader("src/test/java/input/OneEntry");
-        List<String> registeredEntries = inputReader.getSeed();
-        assertEquals(registeredEntries.size(),1);
+        inputReader = new SeedFileReaderFile();
+        List<String> registeredEntries = inputReader.getSeed("src/test/java/input/OneEntry");
+        assertEquals(registeredEntries.size(), 1);
     }
 
     @Test
     public void readFileWithMultipleEntry() throws Exception
     {
-        inputReader = new SeedFileReader("src/test/java/input/MultipleEntry");
-        List<String> registeredEntries = inputReader.getSeed();
-        assertEquals(registeredEntries.size(),3);
+        inputReader = new SeedFileReaderFile();
+        List<String> registeredEntries = inputReader.getSeed("src/test/java/input/MultipleEntry");
+        assertEquals(registeredEntries.size(), 3);
     }
 }

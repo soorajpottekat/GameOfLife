@@ -1,5 +1,6 @@
 package com.thoughtworks.game.map;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -17,22 +18,26 @@ import static org.junit.Assert.*;
  */
 public class MapManagerTest
 {
-    private static MapManager mapManager;
-    @BeforeClass
-    public static void setUp()
+    private MapManager mapManager;
+
+    @Before
+    public void setUp()
     {
         mapManager = new MapManager();
     }
+
     @Test
     public void insertOneSeedIntoMap() throws Exception
     {
         Map map = new Map(5, 5);
         List<String> seeds = new ArrayList<String>();
         seeds.add("2,3");
-        mapManager.insertSeedInputToMap(map,seeds);
-        HashMap<Point, Object> allCells = map.getAllCells();
-        assertEquals(1,allCells.size());
+        mapManager.insertSeedInputToMap(map, seeds);
+        Map expected = new Map(5, 5);
+        expected.addCell(2, 3, new Object());
+        assertEquals(expected, map);
     }
+
     @Test
     public void insertSeedIntoMap() throws Exception
     {
@@ -43,8 +48,8 @@ public class MapManagerTest
         seeds.add("2,1");
         seeds.add("2,2");
         seeds.add("2,4");
-        mapManager.insertSeedInputToMap(map,seeds);
+        mapManager.insertSeedInputToMap(map, seeds);
         HashMap<Point, Object> allCells = map.getAllCells();
-        assertEquals(5,allCells.size());
+        assertEquals(5, allCells.size());
     }
 }

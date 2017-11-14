@@ -8,6 +8,7 @@ import com.thoughtworks.game.main.GameEngineTest;
 import com.thoughtworks.game.map.MapManagerTest;
 import com.thoughtworks.game.map.MapTest;
 import com.thoughtworks.game.output.ConsolePrinterTest;
+import com.thoughtworks.game.output.UserMessagePrinterTest;
 import com.thoughtworks.game.rule.RuleSetTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -30,7 +31,8 @@ import org.junit.runners.Suite.SuiteClasses;
         GameOfLifeGeneratorTest.class,
         ConsoleUserInputReaderTest.class,
         GameControllerTest.class,
-        GameEngineTest.class
+        GameEngineTest.class,
+        UserMessagePrinterTest.class
 })
 public class TestSuite
 {

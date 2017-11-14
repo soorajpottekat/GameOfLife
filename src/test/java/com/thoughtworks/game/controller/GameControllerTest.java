@@ -1,16 +1,16 @@
 package com.thoughtworks.game.controller;
 
-import com.thoughtworks.game.input.ConsoleUserInputReader;
+import com.thoughtworks.game.display.GameOfLifePrinter;
+import com.thoughtworks.game.input.FileInputReader;
+import com.thoughtworks.game.input.UserInputReader;
 import com.thoughtworks.game.map.Map;
+import com.thoughtworks.game.output.MessagePrinter;
+import com.thoughtworks.game.output.Printer;
 import org.junit.*;
 
-import java.awt.*;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -21,103 +21,148 @@ import static org.junit.Assert.*;
  */
 public class GameControllerTest
 {
-    private static GameController gameController;
-    @BeforeClass
-    public static void setUp() throws Exception
-    {
-        gameController = new GameController(new ConsoleUserInputReader());
-    }
+    private GameController gameController;
+    private MockFileReader fileInputReader;
+    private MockUserInputReader inputReader;
+    private GameOfLifePrinter gameOfLifePrinter;
 
-    @AfterClass
-    public static void cleanUp() throws Exception
+    @Before
+    public void setUp() throws Exception
     {
-        System.setOut(System.out);
-        System.setIn(System.in);
+        fileInputReader = new MockFileReader();
+        inputReader = new MockUserInputReader();
+        gameOfLifePrinter = new GameOfLifePrinter(new MockUserOutputPrinter(),new MockMessagePrinter());
+        gameController = new GameController(fileInputReader, inputReader,gameOfLifePrinter);
     }
 
     @Test
-    public void readSeedFileInput() throws Exception
+    public void generateZeroGeneration() throws Exception
     {
-        List<String> entries = gameController.readSeedInput("src/test/java/resource/testSeed");
-        assertEquals(3,entries.size());
-    }
-    @Test
-    public void initialiseMapWithSeed() throws Exception
-    {
-        List<String> entries = createEntries();
-        Map map = gameController.initialiseMapWithSeed(entries, 10, 50);
-        final Set<Point> allLocations = map.getAllLocations();
-        assertEquals(3,allLocations.size());
-        assertTrue(allLocations.contains(new Point(1,2)));
-        assertTrue(allLocations.contains(new Point(2,1)));
-        assertTrue(allLocations.contains(new Point(1,1)));
-        assertFalse(allLocations.contains(new Point(2,3)));
-        assertFalse(allLocations.contains(new Point(7,6)));
-        assertFalse(allLocations.contains(new Point(4,9)));
+        Map map = forwardNGenerations(new String[]{"-1"});
+        Map expected = initialMap();
+        assertEquals(expected, map);
     }
 
-    private List<String> createEntries()
+    private Map forwardNGenerations(String[] input) throws NoSuchFieldException, IllegalAccessException
     {
-        List<String> entries = new ArrayList<String>();
+        ArrayList<String> entries = createEntries();
+        fileInputReader.setSeed(entries);
+        inputReader.setInput(input);
+        gameController.forwardGenerations("inputPath", 20, 10);
+        Map map = (Map) getObjectField(gameController, "map");
+        return map;
+    }
+
+    private ArrayList<String> createEntries()
+    {
+        ArrayList<String> entries = new ArrayList<String>();
         entries.add("1,2");
-        entries.add("2,1");
         entries.add("1,1");
+        entries.add("1,3");
         return entries;
     }
 
+    private Map initialMap()
+    {
+        Map expected = new Map(20, 10);
+        expected.addCell(1, 2, new Object());
+        expected.addCell(1, 1, new Object());
+        expected.addCell(1, 3, new Object());
+        return expected;
+    }
+
+    private Object getObjectField(Object object, String fieldToGet) throws NoSuchFieldException, IllegalAccessException
+    {
+        Field field = object.getClass().getDeclaredField(fieldToGet);
+        field.setAccessible(true);
+        return field.get(object);
+    }
+
     @Test
-    public void printMapWithThreeEntries() throws Exception
+    public void generateOneGeneration() throws Exception
     {
-        List<String> entries = createEntries();
-        Map map = gameController.initialiseMapWithSeed(entries, 3, 3);
-        ByteArrayOutputStream outContent = setUserOutputStream();
-        verifyTheInputMap(map, outContent);
+        Map map = forwardNGenerations(new String[]{"a", "-1"});
+        Map expected = generatedMap();
+        assertEquals(expected, map);
     }
 
-    private void verifyTheInputMap(Map map, ByteArrayOutputStream outContent)
+    private Map generatedMap()
     {
-        gameController.printMap(map);
-        String expected = "---\n" +
-                "-##\n" +
-                "-#-\n";
-        assertEquals(expected,outContent.toString());
+        Map expected = new Map(20, 10);
+        expected.addCell(0, 2, new Object());
+        expected.addCell(1, 2, new Object());
+        expected.addCell(2, 2, new Object());
+        return expected;
     }
+
     @Test
-    public void forwardOneGenerationWithBlinkerPattern() throws Exception
+    public void generateFourGeneration() throws Exception
     {
-        ByteArrayOutputStream outContent = setUserOutputStream();
-        setUserInput();
-        gameController = new GameController(new ConsoleUserInputReader());
-        List<String> entries = createEntries();
-        Map map = gameController.initialiseMapWithSeed(entries, 3, 3);
-        verifyTheInputMap(map, outContent);
-        gameController.forwardGenerations(map);
-        String expected = expectedOutput();
-        assertEquals(expected,outContent.toString());
+        Map map = forwardNGenerations(new String[]{"a", "a", "a", "a", "-1"});
+        Map expected = initialMap();
+        assertEquals(expected, map);
+    }
+}
+
+class MockFileReader implements FileInputReader
+{
+    private List<String> seed;
+
+    public void setSeed(List<String> seed)
+    {
+        this.seed = seed;
     }
 
-    private void setUserInput()
+    public List<String> getSeed(String filePath) throws IllegalArgumentException
     {
-        ByteArrayInputStream input = new ByteArrayInputStream("a\n-1".getBytes());
-        System.setIn(input);
+        return seed;
+    }
+}
+
+class MockUserInputReader implements UserInputReader
+{
+    private String[] value;
+    private int index;
+
+    public void setInput(String[] value)
+    {
+        this.value = value;
     }
 
-    private ByteArrayOutputStream setUserOutputStream()
+    public String getUserInput()
     {
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        return outContent;
+        if (value != null)
+        {
+            if (index == value.length)
+                index = 0;
+            return value[index++];
+        }
+        return null;
+    }
+}
+class MockUserOutputPrinter implements Printer
+{
+    String output = "";
+    public void printNewLine()
+    {
+       output += "\n";
     }
 
-    private String expectedOutput()
+    public void printLiveCell()
     {
-        String step1 = "---\n" +
-                "-##\n" +
-                "-#-\n";
-        String userMessage = " Enter \"-1\" to exit; press any key to continue : ";
-        String step2 = "---\n" +
-                "-##\n" +
-                "-##\n";
-        return step1 + userMessage + step2 + userMessage;
+        output += "#";
+    }
+
+    public void printDeadCell()
+    {
+        output += "-";
+    }
+}
+
+class MockMessagePrinter implements MessagePrinter
+{
+    public void printUserMessage()
+    {
+
     }
 }

@@ -1,11 +1,13 @@
 package com.thoughtworks.game.component;
 
 import com.thoughtworks.game.component.CellsCreator;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,10 +22,10 @@ import static org.junit.Assert.assertTrue;
 public class CellsCreatorTest
 {
 
-    private static CellsCreator cellsCreator;
+    private CellsCreator cellsCreator;
 
-    @BeforeClass
-    public static void setUp()
+    @Before
+    public void setUp()
     {
         cellsCreator = new CellsCreator();
     }
@@ -50,7 +52,9 @@ public class CellsCreatorTest
         List<String> seeds = new ArrayList<String>();
         seeds.add("2,3");
         Set<Point> locations = cellsCreator.createCellsLocationFromSeed(seeds);
-        assertEquals(1,locations.size());
+        Set<Point> expected = new HashSet<Point>();
+        expected.add(new Point(2, 3));
+        assertEquals(expected, locations);
     }
 
     @Test
@@ -61,9 +65,12 @@ public class CellsCreatorTest
         seeds.add("2,1");
         seeds.add("2,2");
         seeds.add("2,5");
-        final Set<Point> locations = cellsCreator.createCellsLocationFromSeed(seeds);
-        assertEquals(4,locations.size());
+        Set<Point> locations = cellsCreator.createCellsLocationFromSeed(seeds);
+        HashSet<Point> expected = new HashSet<Point>();
+        expected.add(new Point(2, 3));
+        expected.add(new Point(2, 1));
+        expected.add(new Point(2, 5));
+        expected.add(new Point(2, 2));
+        assertEquals(expected, locations);
     }
-
-
 }

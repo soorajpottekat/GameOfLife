@@ -1,6 +1,7 @@
 package com.thoughtworks.game.input;
 
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -15,20 +16,7 @@ import static org.junit.Assert.*;
  */
 public class ConsoleUserInputReaderTest
 {
-    private static ConsoleUserInputReader consoleUserInputReader;
-
-    @BeforeClass
-    public static void setUp()
-    {
-        consoleUserInputReader = new ConsoleUserInputReader();
-    }
-
-    @AfterClass
-    public static void cleanUp()
-    {
-        System.setIn(System.in);
-    }
-
+    private ConsoleUserInputReader consoleUserInputReader;
     @Test
     public void getUserInputOneLetterInput() throws Exception
     {
@@ -39,8 +27,8 @@ public class ConsoleUserInputReaderTest
     private void verifyUserInput(String inputString)
     {
         ByteArrayInputStream input = new ByteArrayInputStream(inputString.getBytes());
-        System.setIn(input);
-        String userInput = new ConsoleUserInputReader().getUserInput();
+        consoleUserInputReader = new ConsoleUserInputReader(input);
+        String userInput = consoleUserInputReader.getUserInput();
         assertEquals(inputString,userInput);
     }
 

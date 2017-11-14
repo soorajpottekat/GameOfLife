@@ -17,44 +17,42 @@ import static org.junit.Assert.*;
  */
 public class ConsolePrinterTest
 {
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private static Printer printer;
-
-    @BeforeClass
-    public static void setUp()
-    {
-        printer = new ConsolePrinter();
-    }
+    private Printer printer;
+    private ByteArrayOutputStream outPut;
 
     @Before
-    public void setUpForTest() {
-        System.setOut(new PrintStream(outContent));
+    public void setUp()
+    {
+        outPut = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outPut));
+        printer = new ConsolePrinter();
     }
-
     @After
-    public void cleanUpForTest() {
-        System.setOut(null);
+    public void cleanUp()
+    {
+        System.setOut(System.out);
     }
 
     @Test
     public void printNewLine() throws Exception
     {
         printer.printNewLine();
-        assertEquals("\n", outContent.toString());
+        assertEquals("\n", outPut.toString());
     }
 
     @Test
     public void printLiveCell() throws Exception
     {
         printer.printLiveCell();
-        assertEquals("#", outContent.toString());
+        assertEquals("#", outPut.toString());
     }
 
     @Test
     public void printDeadCell() throws Exception
     {
         printer.printDeadCell();
-        assertEquals("-", outContent.toString());
+        assertEquals("-", outPut.toString());
     }
+
 
 }
